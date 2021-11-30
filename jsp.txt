@@ -1,0 +1,134 @@
+자바(JAVA) 스프링(SPRING) 웹 개발자 양성
+
+응용프로그램 - V3, 알집,..
+웹프로그램 - 웹에서 동작(프론트엔드,백엔드)
+
+   
+자바 - 안드로이드 앱개발 
+      - JSP - MVC(JSP 모델 2) - 스프링(전자정부표준프레임워크)
+      - HTML, CSS, Javascript, jQuery,..
+      - 데이터베이스(오라클,MS-SQL,Mysql)
+직업기초- 직업담당
+
+
+- 프론트엔드 : Javascript, jQuery 
+- 백엔드 : JSP - MVC(JSP 모델 2) - 스프링
+
+- NCS : 서버프로그램구현(개인프로젝트),
+          인터페이스 구현(jQeury), 통합구현 (스프링)
+           요구사항확인(UML)
+
+1. 수업진행(수료) - 실습복습
+2. 팀프로젝트(포트폴리오)
+3. 정보처리 자격증
+
+\\192.168.1.200
+\\192.168.1.200\Shared\JSP
+
+정적웹프로그램(프론트엔드) : HTML, CSS, JavaScript, jQuery
+동적웹프로그램(백엔드) : PHP, ASP, ASP.NET(C#), JSP(Java)
+
+ JSP(Java Server Page)
+설치
+1. JDK 프로그램 설치
+2. 웹 Server, 웹 애플리케이션 서버 설치
+3. 데이터베이스관리프로그램 설치(Mysql)
+4. 개발툴 설치
+
+1. JDK(자바개발툴) 프로그램 설치
+https://www.oracle.com/java/technologies/
+https://www.oracle.com/java/technologies/downloads/#java8
+
+Java SE Development Kit 8u251
+Windows 
+x64 Installer
+jdk-8u251-windows-x64.exe
+설치
+실행명령, 만든프로그램API, 실행환경(JVM)
+
+설치테스트
+실행 - cmd
+java -version
+java version "1.8.0_251"
+
+javac -version
+'javac'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+자바환경설정
+javac 명령이 위치상관없이 명령이 실행되기위해서 
+    시스템에 경로설정
+
+내PC - 오른쪽버튼 - 속성 - 고급시스템설정 -
+고급탭 - 환경변수 - 시스템변수 - path - 편집
+새로만들기 - C:\Program Files\Java\jdk1.8.0_251\bin
+
+실행 - cmd
+javac -version
+javac 1.8.0_251
+
+
+\\192.168.1.200\Shared\프로그램
+
+2. 웹 Server, 웹 애플리케이션 서버 설치
+
+정적웹프로그램(프론트엔드) : HTML, CSS, JavaScript, jQuery
+동적웹프로그램(백엔드) : PHP, ASP, ASP.NET(C#), JSP(Java)
+
+정적웹프로그램(프론트엔드, 사용자단에서 실행) : test1.html
+동적웹프로그램(백엔드, 서버에서 실행) : test2.jsp
+
+웹 Server : 
+웹서버 안에 있는 파일을 여러사람들에게 보내주는 서비스
+html을 보여달라고 요청하면 보내주는 서비스
+
+웹 애플리케이션 서버:
+jsp 를 보여달라고 요청하면 jsp->html변경해서 보내주는 서비스
+
+아파치(웹서버) + 톰캣(웹애플리케이션서버) 설치
+
+https://tomcat.apache.org/
+Download
+Tomcat 8 Software Downloads
+8.5.73
+32-bit/64-bit Windows Service Installer (pgp, sha512)
+다운로드
+apache-tomcat-8.5.73.exe
+
+설치
+http포트port 8080
+C:\Program Files\Apache Software Foundation\Tomcat 8.5
+
+웹서버 start 
+
+사용자가 웹브라우저에 주소 => 웹서버 접속
+네이버 서버 주소    http://www.naver.com
+자기자신 서버 주소  http://localhost:8080
+
+웹서버 stop
+웹서버 start 
+자기자신 서버 주소  http://localhost:8080
+C:\Program Files\Apache Software Foundation\Tomcat 8.5
+\webapps\ROOT
+폴더에 test1.html, test2.jsp 넣기
+
+자기자신 서버 주소  http://localhost:8080/index.jsp
+자기자신 서버 주소  http://localhost:8080/test1.html
+자기자신 서버 주소  http://localhost:8080/test2.jsp
+
+내컴퓨터 인터넷 할수 있는 번호
+실행 - cmd 
+ipconfig
+IPv4 주소 . . . . . . . . . : 192.168.1.200
+
+자기자신 서버 주소  http://192.168.1.200:8080/test2.jsp
+
+방화벽 해제
+검색 Windows Defender 방화벽
+Windows Defender 방화벽 설정 또는 해제
+Windows Defender 방화벽 사용 안함
+확인
+
+
+
+
