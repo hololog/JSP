@@ -100,6 +100,9 @@ http포트port 8080
 C:\Program Files\Apache Software Foundation\Tomcat 8.5
 
 웹서버 start 
+C:\Program Files\Apache Software Foundation\Tomcat 8.5\bin
+Tomcat8w.exe
+오른쪽 버튼 - 관리자 권한으로 실행 - Start
 
 사용자가 웹브라우저에 주소 => 웹서버 접속
 네이버 서버 주소    http://www.naver.com
@@ -128,6 +131,100 @@ IPv4 주소 . . . . . . . . . : 192.168.1.200
 Windows Defender 방화벽 설정 또는 해제
 Windows Defender 방화벽 사용 안함
 확인
+
+4. 통합 개발툴 설치(이클립스)
+- 에러 부분 표시
+- 실행환경 편리성
+https://www.eclipse.org/
+
+Eclipse IDE for Enterprise Java and Web Developers
+eclipse-jee-2021-09-R-win32-x86_64.zip
+c: 압축풀기
+eclipse_jsp1 폴더명 변경
+바탕화면으로 바로가기 만들기  =>  eclipse_jsp1
+
+작업공간 d: workspace_jsp1 폴더 만들기
+
+- 이클립스 환경설정
+1. 한글처리 => 세계 표준 UTF-8
+Window - Preferences - 
+General - Workspace - Text file encoding - Other - UTF-8
+Web - CSS Files - Encoding ISO 10646/Unicode(UTF-8)
+Web - HTML Files - Encoding ISO 10646/Unicode(UTF-8)
+Web - JSP Files - Encoding ISO 10646/Unicode(UTF-8)
+Apply and Close
+
+
+2. 서버 가져오기
+File - New - Other - Server - Server -Next - Apache - Tomcat v8.5 Server
+Name :
+Apache Tomcat v8.5
+Tomcat installation directory :
+C:\Program Files\Apache Software Foundation\Tomcat 8.5
+Next 
+Finish
+
+Servers 환경설정
+Tomcat v8.5 Server at localhost 더블클릭
+Ports - Tomcat admin port - 8005
+        - HTTP - 8080
+Server Options
+Publsh module contexts to XML files 체크
+닫기 - 저장
+
+
+3. 프로젝트 만들기
+File - New - Other - Web - Dynamic Web Project - Next
+Project name :
+JspStudy
+Next
+Next
+web.xml 체크
+Finish
+
+=> 자바버전 16 -> 1.8 설정 변경
+프로젝트 - 오른쪽 버튼 - Properties -
+Java Compiler - JDK Compliance - 체크해제 - 1.8변경
+Project Facets - Java 1.8 변경
+Apply and Close
+
+
+4. 서버와 프로젝트 연결
+Servers 탭
+Tomcat v8.5 Server at localhost
+오른쪽 버튼 - Add and Remove
+JspStudy 선택 - Add  - Finish
+
+
+
+5. 실행
+프로젝트 src - main - webapp - 오른쪽버튼 
+New - Other - Web - JSP파일 - Next - test2.jsp -Next -
+HTML5 선택 - Finish
+
+New - Other - Web - HTML파일 - Next - test1.html -Next -
+HTML5 선택 - Finish
+
+파일선택 - 오른쪽버튼 - Run As - Run on Server
+ctrl - F11
+
+6. 브라우저 선택
+Window - Web Browser - Chrome 선택
+
+------------------------------------------------------
+1. JavaScript 화면 제어  프론트엔드 개발
+2. JSP 백엔드 개발 => 개인프로젝트 진행
+3. jQuery 화면제어 프론트엔드 개발
+4. JSP(MVC) 백엔드 개발
+5. 스프링(MVC) 백엔드 개발 => 팀프로젝트 진행
+
+1. JavaScript 화면 제어  프론트엔드 개발
+- 변수 개념
+- 함수 개념
+- 객체 개념
+
+
+
 
 
 
