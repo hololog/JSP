@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test8.html</title>
+<script type="text/javascript">
+	// 내장객체 window 윈도우창  - location 주소줄
+	//                       - history 방문기록    
+</script>
+</head>
+<body>
+
+</body>
+</html>

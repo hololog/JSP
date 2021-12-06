@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test8.html</title>
+<script type="text/javascript">
+	// 내장객체 window 윈도우창  - location 주소줄
+	//                       - history 방문기록    
+	//                       - document html(body)문서 - image , ..
+	//                                                - form
+
+// 내장객체 window 생략가능
+// 내장객체 window.location => 큰 주제 : 웹브라우저 창 안에 있는 주소줄 제어
+// 내장객체 window.location => 멤버변수 href 주소내용 저장하는 변수 ,
+//                           멤버함수 reload() 새로고침 함수() 
+// 내장객체 호출    =>location.href, location.reload()
+
+function f1() {
+	alert(location.href);
+}
+function f2() {
+	// href 변수 내용 변경 => 주소줄 변경 => 하이퍼링크 
+	alert("test7.html 이동");
+	location.href="test7.html";
+}
+</script>
+</head>
+<body>
+<input type="button" value="버튼" onclick="f1()">
+<input type="button" value="주소변경" onclick="f2()">
+<input type="button" value="새로고침" onclick="f3()">
+<a href="test7.html">html태그 하이퍼링크</a>
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test8.html</title>
+<script type="text/javascript">
+	// 내장객체 window 윈도우창  - location 주소줄
+	//                       - history 방문기록    
+	//                       - document html(body)문서 - image , ..
+	//                                                - form
+
+// 내장객체 window.location => 큰 주제 : 웹브라우저 창 안에 있는 주소줄 제어
+// 내장객체 window.location => 멤버변수 href , 멤버함수 
+// 내장객체 호출    =>window.status, window.open(), window.close()
+</script>
+</head>
+<body>
+
+</body>
+</html>

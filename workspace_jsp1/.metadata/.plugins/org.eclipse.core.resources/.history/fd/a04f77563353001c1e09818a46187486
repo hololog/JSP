@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test3.html</title>
+<script type="text/javascript">
+	// 변수 : 기억장소 할당하고 이름을 부여 해서 값을 저장=> 변수이름를 불러서 사용
+	var a =10;
+// 	alert(a);
+	
+	// 함수 : 자주사용하는 기능을 모아서 이름을 부여 => 이름을 불러서 동작
+	function fx() {
+		// 자주사용하는 기능
+		alert("함수호출");
+	}
+	
+// 	fx();
+		
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test5.html</title>
+<script type="text/javascript">
+// 내장함수 : 자바스크립트를 만들때 만들어놓은 함수
+
+// 메시지 출력하는  내장함수 호출 
+alert(10);
+
+//  
+
+</script>
+</head>
+<body>
+
+</body>
+</html>

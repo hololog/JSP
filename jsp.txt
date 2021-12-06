@@ -221,11 +221,29 @@ Window - Web Browser - Chrome 선택
 1. JavaScript 화면 제어  프론트엔드 개발
 - 변수 개념
 - 함수 개념
-- 객체 개념
+- 객체 개념 => 큰 주제 정하고 관련된 변수, 함수의 정의 => 객체 호출 사용
+          => 내장객체 : 웹브라우저 제어 객체
 
+내장함수
+alert() 	<<---출력
+prompt() 	<<---입력칸출력
+parseInt() 	<<--- 정수형숫자
+parseFloat()	<<--- 실수형숫자
+<script type="text/javascript"></script>
 
+내장객체 
+window 웹브라우저 창 주제 
+웹브라우저 창 열기
+window.open("test7_win.html","","width=500,height=300");
+웹브라우저 창 닫기
+window.close();
 
+내장객체 window.location => 큰 주제 : 웹브라우저 창 안에 있는 주소줄 제어
+주소줄 내용을 저장하는 변수
+location.href="test7.html";
 
-
+내장객체 window.history => 큰 주제 : 웹브라우저 창 안에 있는 방문기록 제어
+방문기록중에 한칸 뒤로이동
+history.back();
 
 

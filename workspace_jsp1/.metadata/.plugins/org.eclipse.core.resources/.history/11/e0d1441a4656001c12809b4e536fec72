@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test10.html</title>
+<script type="text/javascript">
+//내장객체 window 윈도우창  - location 주소줄
+//                      - history 방문기록    
+//                      - document html(body)문서 틀 - image , ..
+//                                                  - form
+
+//내장객체 window 생략가능
+//내장객체 window.document => 큰 주제 : 웹브라우저 창 안에 있는 html(body) 제어
+//내장객체 window.document => 멤버변수 length 방문기록 개수 저장하는 변수 ,
+//                          멤버함수 back() 한칸 뒤로이동 함수()
+//내장객체 호출    =>history.length, history.back(), history.forward()
+//       history.go(-2)  history.go(3)
+</script>
+</head>
+<body>
+
+</body>
+</html>
