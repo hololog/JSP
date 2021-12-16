@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test13.html</title>
+<script type="text/javascript">
+//내장객체 window 윈도우창  - location 주소줄
+//                      - history 방문기록    
+//                      - document html 틀 - image , ..
+//                                        - form - text,password,textarea
+//                                               - radio, checkbox
+//                                               - select
+
+//내장객체 window 생략가능
+//내장객체 window.document.form => 큰 주제 : html문서안에 있는 폼태그 제어
+//내장객체 window.document.form => 멤버변수 
+//                               action 하이퍼링크 연결페이지 저장하는 변수 ,
+//                               method 데이터 전송방식 저장하는 변수,
+//                               멤버함수(메서드)
+//                               focus() 텍스트 상자 활성화 기능
+//                               blur() 텍스트 상자 활성화 해제 기능
+//                               select() 텍스트 상자 글자 블럭 설정 기능
+//내장객체 호출    =>document.폼이름.action, document.폼이름.method,
+//                document.폼이름.focus(), document.폼이름.blur(),
+//                document.폼이름.select()
+function f1() {
+	alert(document.fr.action);
+	alert(document.fr.method);
+}
+</script>
+</head>
+<body>
+<form action="a.jsp" method="get" name="fr">
+텍스트 상자 :<input type="text" name="id" value="kim"><br>
+<input type="button" value="폼태그 정보확인 버튼" onclick="f1()"><br>
+</form>
+</body>
+</html>
+
