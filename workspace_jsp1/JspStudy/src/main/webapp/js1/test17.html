@@ -5,8 +5,33 @@
 <title>js1/test17.html</title>
 <script type="text/javascript">
 function f1() {
-	if(){
-		
+	if(document.fr.id.value==""){
+		alert("텍스트 상자 입력하세요");
+		document.fr.id.focus();
+		return;
+	}
+	if(document.fr.pass.value==""){
+		alert("비밀번호 상자 입력하세요");
+		document.fr.pass.focus();
+		return;
+	}
+	if(document.fr.ta.value==""){
+		alert("긴텍스트 상자 입력하세요");
+		document.fr.ta.focus();
+		return;
+	}
+	if(document.fr.ra[0].checked==false && document.fr.ra[1].checked==false){
+		alert("라디오박스 입력하세요");
+		return;
+	}
+	if(document.fr.ch[0].checked==false && document.fr.ch[1].checked==false){
+		alert("체크박스 입력하세요");
+		return;
+	}
+	if(document.fr.sel.value==""){
+		alert("목록상자 입력하세요");
+		document.fr.sel.focus();
+		return;
 	}
 	// 서버 전송
 	document.fr.submit();
@@ -27,7 +52,7 @@ function f1() {
 			<option value="목1">목록1</option>
 			<option value="목2">목록2</option> 
 			<option value="목3">목록3</option>
-         </select>       
+         </select>    <br>   
 <input type="button" value="전체제어" onclick="f1()">
 </form>
 </body>

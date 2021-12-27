@@ -24,6 +24,7 @@
 
 // => 웹 서버가 찾은 파일을 http전달 
 // => http는 사용자 컴퓨터 전달
+// => request, response, 처리담당자 서블릿 => 소멸
 
 // request객체 (멤버변수,멤버함수) 정의
 // request안에  name=kim&num=1  저장

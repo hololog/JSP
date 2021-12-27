@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js1/test17.html</title>
+<script type="text/javascript">
+	//1) 필수조건 모두 체크 (비어있는것 체크)
+	//2) 아이디가 5~10자리 인지 체크
+	//3) 비밀번호와 비밀번호 확인이 같은지 체크
+	//4) 주민 앞자리 6자리인지
+	//5) 주민 뒷자리 7자리인지 체크 
+	
+	
+function f1() {
+		
+		if(document.fr.id.value == "") {
+			
+			alert("ID를 입력하세요");
+			
+			return;
+		}
+		
+		if(5 > document.fr.id.value.length || document.fr.id.value.length > 10) {
+			
+			
+			alert("아이디는 5~10자 이어야 합니다");
+			
+			return;
+		}
+		
+		if(document.fr.pass.value == "") {
+			
+			alert("password를 입력하세요");
+			
+			return;
+		}
+		
+		if(document.fr.pass1.value == "") {
+			
+			alert("password 확인을 입력하세요");
+			
+			return;
+		}
+		
+		if(document.fr.pass.value != document.fr.pass1.value) {
+			
+			alert("비밀번호가 일치하여야 합니다");
+			
+			return;
+		}
+		
+		
+		if(document.fr.name.value == "") {
+			
+			alert("이름을 입력하세요");
+			
+			return;
+		}
+		
+		if(document.fr.snum1.value == "") {
+			
+			alert("주민번호 앞자리를 입력하세요");
+			
+			return;
+		}
+		
+		if(document.fr.snum1.value.length != 6) {
+			
+			alert("주민번호 앞자리는 6자 이어야 합니다");
+			
+			return;
+		}
+		
+		if(document.fr.snum2.value == "") {
+			
+			alert("주민번호 뒷자리를 입력하세요");
+			
+			return;
+		}
+		
+		if(document.fr.snum2.value.length != 7) {
+			
+		
+			alert("주민번호 뒷자리는 7자 이어야 합니다");
+			
+			return;
+		}	
+		
+		
+		document.fr.submit(); //전송		
+	
+	}
+	
+function f2() {
+	
+	
+	
+}
+
+
+</script>
+</head>
+<body>
+	<h1>회원가입</h1>
+		<form action="a.jsp" method="post" name="fr">
+			<fieldset style="width: 50%">
+				<legend>ITWILL 회원가입</legend>
+				<label>아이디 : </label><input type="text" name="id" id="id"><br>
+				<label>비밀번호 : </label><input type="password" name="pass" id="pass"><br>
+				<label>비밀번호 확인 : </label><input type="password" name="pass1" id="pass1"><br>
+				<label>이름 : </label><input type="text" name="name" id="name"><br>
+				<label>주민번호 : </label><input type="text" name="snum1" id="snum1">
+										<input type="text" name="snum2" id="snum2"><br>			
+				<label>남</label><input type="radio" name="ra" id="ra1">
+				<label>여</label><input type="radio" name="ra" id="ra2"><br>
+				<label>취미 :</label> 
+				<input type="checkbox" name="ch" id="ch1"><label>여행</label>
+				<input type="checkbox" name="ch" id="ch2"><label>독서</label>
+				<input type="checkbox" name="ch" id="ch3"><label>게임</label><br>
+				<label>좋아하는 과목 :</label>
+				<select name="sel">
+					<option value="">선택하세요</option>
+					<option value="1">국어</option>
+					<option value="2">영어</option>
+					<option value="3">수학</option>
+				</select><br>
+				<label>한마디 :</label>
+				<textarea rows="5" cols="10" name="ta"></textarea>
+				
+			</fieldset>	
+			
+			<input type="button" value="회원가입" onclick="f1()">
+			<input type="reset" value="처음으로" onclick="f2()">
+			
+		</form>
+</body>
+</html>
