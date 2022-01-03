@@ -278,5 +278,253 @@ history.back();
 // => http는 사용자 컴퓨터 전달
 // => request, response, 처리담당자 서블릿 => 소멸
 
+3. 데이터베이스관리프로그램 설치(Mysql)
+데이이터베이스 - 데이터 저장
+데이터베이스관리시스템 (DBMS,DB서버) - 데이터 관리
+                               - 오라클, MS-SQL, Mysql(마리아디비),...
+
+https://www.mysql.com/
+DOWNLOADS
+MySQL Community Server
+
+Looking for previous GA versions?
+MySQL Community Server 5.7.36
+MySQL Installer 5.7.36
+
+Windows (x86, 32-bit), MSI Installer	5.7.36	2.3M	
+Download
+No thanks, just start my download.
+
+다운로드
+mysql-installer-web-community-5.7.36.1.msi
+설치
+yes - yes 
+Choosing a Setup Type
+Developer Default 선택 - Next
+
+Check Requirements
+MySQL Server 5.7 Execute -체크  I agree  -Install
+MySQL Workbench 8.0.27 -체크  I agree  -Install
+Next - Yes  - Execute - Next - Execute - Next
+
+Product Configuration - Next
+Type and Networking - TCP/IP Port 3306 -Next
+Accounts and Roles - Root Password - 1234 -Next
+Windows Service - Next 
+Apply Configuration - Execute - Finish
+Connect To Server - root , 1234 Check -next
+Execute - Finish
+
+설치확인
+MySQL 5.7 Command Line Client
+password : 1234
+mysql>
+
+mysql환경설정
+파일위치 상관없이 실행
+
+내PC - 오른쪽버튼 - 속성 - 고급시스템설정 -
+고급탭 - 환경변수 - 시스템변수 - path - 편집
+새로만들기 -C:\Program Files\MySQL\MySQL Server 5.7\bin
+
+실행 - cmd
+mysql -uroot -p 
+1234
+mysql>
+
+데이터베이스 사용언어 SQL
+데이터정의어(데이터베이스 공간 만들고,수정, 삭제) : create,alter,drop 
+데이터제어어(데이터베이스 관리할 사용자 권한 부여) : grant, revoke
+데이터조작어(데이테베이스 공간안에 내용을 넣고,수정,삭제,조회) :
+                             insert, update, delete, select
+
+쇼핑몰프로젝트
+데이터베이스 - 쇼핑몰 전체 정보를 저장하는 공간
+테이블 - 주제별로 저장하는 공간(회원, 게시판, 상품, 주문,..)
+사용자 - 데이터베이스 관리할 사용자
+
+데이터베이스 한글설정
+status;
+Server characterset:    latin1 => utf8
+Db     characterset:    latin1 => utf8
+Client characterset:    euckr
+Conn.  characterset:    euckr
+
+C:\ProgramData\MySQL\MySQL Server 5.7
+my.ini 
+=> 바탕화면 가져가기
+notepad++ 설치
+npp.8.1.9.3.Installer.x64.exe
+
+my.ini 수정 
+99라인
+# character-set-server=
+99라인 수정
+character-set-server=utf8
+
+바탕화면 my.ini => 
+C:\ProgramData\MySQL\MySQL Server 5.7 넣기
+
+디비서버 재시작
+서비스 검색
+Mysql57 - 오른쪽버튼 - 다시시작
+
+
+실행 - cmd
+mysql -uroot -p 
+1234
+mysql>
+
+
+데이터베이스 목록
+show databases;
+
+데이터베이스 만들기
+create database jspdb1;
+데이터베이스 삭제
+drop database jspdb1;
+
+데이터베이스 만들기
+create database jspdb1;
+
+데이터베이스 목록
+show databases;
+
+데이터베이스 선택
+use jspdb1;
+
+테이블 목록조회
+show tables;
+
+학생 테이블(주제별로 저장공간) 만들기
+학생번호, 학생이름, 학생점수, ...
+create table student(
+   num	int,
+   name	varchar(10)
+);
+
+테이블 구조 확인
+desc student;
+
+학생등록
+insert into 테이블이름(열이름,열이름) 
+values(값,'값');
+
+insert into student(num,name)
+values(1,'홍길동');
+
+학생조회
+select * from student;
+
+insert into student(num,name)
+values(1,'홍길동');
+
+학생조회
+select * from student;
+
+학생테이블 삭제 
+drop table student;
+
+테이블 목록조회
+show tables;
+
+학생 테이블(주제별로 저장공간) 만들기
+학생번호, 학생이름, 학생점수, ...
+테이블내에 중복되지 않고, 비어 있지 않은 기준설정 (primary key)
+: 주민번호, 학생번호, 사원번호, 아이디,...
+
+create table student(
+   num	 int primary key,
+   name 	varchar(10)
+);
+
+테이블 목록조회
+show tables;
+
+테이블 구조 확인
+desc student;
+
+학생등록
+insert into 테이블이름(열이름,열이름) 
+values(값,'값');
+
+insert into student(num,name)
+values(1,'홍길동');
+
+학생조회
+select * from student;
+
+mysql> insert into student(num,name)
+    -> values(1,'홍길동');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+
+// 모든열 입력, 열순서 맞게 입력 => 열이름 생략가능
+insert into student
+values(2,'홍길자');
+
+insert into student(num)
+values(3);
+
+insert into student(name)
+values('이길동');
+ERROR 1364 (HY000): Field 'num' doesn't have a default value
+
+// student 데이터조회
+select * from student;
+select num,name from student;
+
+select * from student where num=1;
+
+select * from student where name='홍길자';
+
+select * from student where num=1 and name='홍길동';
+
+// num 내림차순 정렬
+select * from student order by num desc;
+//name 오름차순 정렬
+select * from student order by name asc;
+
+// 학생정보 수정
+update 테이블이름 set 수정할열=수정할값, 수정할열=수정할값
+where 기준열=값;
+
+update student set name='삼길순'
+where num=3;
+
+//2번학생 이길자로 변경
+update student set name='이길자'
+where num=2;
+
+// 1번학생 번호5 이름 오길동 변경
+update student set num=5, name='오길동'
+where num=1;
+
+//삭제
+delete from 테이블이름
+where 조건열=값;
+
+// 번호 3번 삭제
+delete from student
+where num=3;
+
+// 번호 5번 and 이름 오길동 삭제
+delete from student
+where num=5 and name='오길동';
+
+//사용자웹브라우저 => 웹서버(웹애플리케이션서버) => 데이터베이스서버 접속 
+// JDBC - 웹서버 디비서버 연결하는 프로그램 설치
+src - main - webapp - WEB-INF - lib 폴더안에 
+mysql-connector-java-5.1.39-bin.jar 넣기
+
+// 1단계 : 설치한 프로그램 가져오기
+// 2단계 : 가져온 프로그램을 이용해서 디비서버 연결 => 연결정보를 저장(자바내장객체)
+// 3단계 : 연결정보를 이용해서 sql구문을 만들고 실행할 준비(자바내장객체)
+// 4단계 : sql구문을 실행  insert,update,delete=> OK
+//                      select => 실행결과 => 결과 (자바내장객체) 저장
+// 5단계 : select 결과를 출력하거나 배열 저장
+
+
+
+
 
 
