@@ -27,8 +27,19 @@
 // 2. 처리담당자(서블릿)지정 처리
 //  처리결과 response에 저장=>웹서버=>http전달 => 사용자 컴퓨터에 전달 
 
-//쿠키값 가져오기
+//사용자 컴퓨터에 있는 모든 쿠키값 가져오기=> Cookie 배열변수 저장 
 Cookie cookies[]=request.getCookies();
+//쿠키값이 있으면
+if(cookies != null){
+	for(int i=0;i<cookies.length;i++){
+		// 0번째 쿠키이름 cook쿠키이름 비교 일치하면 쿠키값 출력
+		if(cookies[i].getName().equals("cook")){
+			out.println("찾은 쿠키이름 : "+cookies[i].getName());
+			out.println(" 찾은 쿠키값 : "+cookies[i].getValue());
+			out.println("<br>");
+		}
+	}
+}
 %>
 <input type="button" value="쿠키값 생성" onclick="location.href='cookieSet.jsp'">
 <input type="button" value="쿠키값 삭제" onclick="location.href='cookieDel.jsp'">
