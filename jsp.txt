@@ -524,7 +524,17 @@ mysql-connector-java-5.1.39-bin.jar 넣기
 // 5단계 : select 결과를 출력하거나 배열 저장
 
 
+회원 테이블(주제별로 저장공간) 만들기
+아이디 비밀번호 이름 생년월일 성별 이메일 전화번호 .. 
+=> 아이디 비밀번호 이름 가입날짜 => 기준키 아이디 선택
 
+create table member(
+   id		 varchar(20) primary key,
+   pass 	varchar(20),
+   name 	varchar(20),
+   date  	datetime
+);
 
-
+show tables;
+desc member;
 
