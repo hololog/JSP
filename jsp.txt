@@ -538,3 +538,41 @@ create table member(
 show tables;
 desc member;
 
+게시판 테이블 만들기
+글번호 이름 제목 글내용 조회수 글쓴날짜  추천수 글쓴이이미지  별명
+=> 글번호 이름 비밀번호 제목 글내용 조회수 글쓴날짜 => 기준키 글번호 선택
+
+cmd
+mysql -uroot -p jspdb1
+1234
+
+create table board(
+	num int primary key,
+	name varchar(20),
+	pass varchar(20),
+	subject varchar(50),
+	content varchar(1000),
+	readcount int,
+	date datetime
+);
+ 
+show tables;
+desc board;
+
+// num구할때  num중에 가장 큰 번호 구해서  1증가
+num   subject 
+ 1    제목1
+ 2    제목2
+ 3    제목3
+
+
+7) 자바등장 => 회원가입, 로그인, 게시판, 자료실...
+8) 하나의 사이트 만들기 => 개인프로젝트 진행
+
+2/10 개인프로젝트 최종
+1. 주제정하기 : 개인 홍보사이트 , 관심 분야 사이트,...
+
+
+
+
+
