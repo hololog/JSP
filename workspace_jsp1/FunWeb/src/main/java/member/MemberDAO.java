@@ -29,6 +29,10 @@ public class MemberDAO {
 //		 con=DriverManager.getConnection(dbUrl, dbId, dbPass);	
 //		 return con;
 		
+		//DataBase Connection Pool : 미리 서버에서 연결하고 연결정보를 저장
+		//                           필요할때 연결자원의 이름을 불러서 사용
+		// 수정 1회 최소화, 성능 높아짐 
+		
 		//  context.xml 불러오기 위해 객체생성  import javax.naming.Context;
 		Context init=new InitialContext();
 		// 자원이름 찾아서 불러오기 javax.sql.DataSource

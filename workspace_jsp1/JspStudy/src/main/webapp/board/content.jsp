@@ -35,6 +35,11 @@ BoardDTO bDTO=bDAO.getBoard(num);
 <tr><td>글쓴이</td><td><%=bDTO.getName() %></td>
     <td>조회수</td><td><%=bDTO.getReadcount() %></td></tr>
 <tr><td>글제목</td><td colspan="3"><%=bDTO.getSubject() %></td></tr>
+<tr><td>첨부파일</td>
+    <td colspan="3">
+    <a href="../upload/<%=bDTO.getFile() %>" download><%=bDTO.getFile() %></a>
+    <img src="../upload/<%=bDTO.getFile() %>" width="100" height="100">
+    </td></tr>
 <tr><td>글내용</td><td colspan="3"><%=bDTO.getContent() %></td></tr>
 <tr><td colspan="4">
 <input type="button" value="글수정" onclick="location.href='updateForm.jsp?num=<%=bDTO.getNum() %>'">

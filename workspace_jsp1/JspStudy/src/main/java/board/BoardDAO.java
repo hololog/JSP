@@ -89,7 +89,7 @@ public class BoardDAO {
 			//1,2 디비연결
 			con=getConnection();
 			//3 sql
-			String sql="insert into board(num, name, pass, subject, content, readcount, date) values(?,?,?,?,?,?,?)";
+			String sql="insert into board(num, name, pass, subject, content, readcount, date, file) values(?,?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, bDTO.getNum());
 			pstmt.setString(2, bDTO.getName());
@@ -98,6 +98,8 @@ public class BoardDAO {
 			pstmt.setString(5, bDTO.getContent());
 			pstmt.setInt(6, bDTO.getReadcount());
 			pstmt.setTimestamp(7, bDTO.getDate());
+			//file 
+			pstmt.setString(8, bDTO.getFile());
 			//4 실행
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -108,7 +110,7 @@ public class BoardDAO {
 	}
 	
 	// List 리턴할형   getBoardList() 메서드 정의 
-	public List getBoardList() {
+	public List getBoardList(int startRow,int pageSize) {
 		// import java.util.List; 자바API 배열
 		// import java.util.ArrayList; 자바API 배열
 		// 인터페이스 List 상속받은 클래스 ArrayList
@@ -119,9 +121,13 @@ public class BoardDAO {
 			// 3sql
 //			String sql="select * from board";
 			//최근글이 맨위에 보이게 가져오기  num를 기준으로 내림차순 
-			String sql="select * from board order by num desc";
+//			String sql="select * from board order by num desc";
+			// String sql="select * from board order by num desc limit 시작하는행번호-1,몇개";
+			// String sql="select * from board order by num desc limit startRow-1,pageSize";
+			String sql="select * from board order by num desc limit ?,?";
 			pstmt=con.prepareStatement(sql);
-			
+			pstmt.setInt(1, startRow-1);
+			pstmt.setInt(2, pageSize);
 			// 4 실행 => 결과 저장
 			rs=pstmt.executeQuery();
 			
@@ -172,6 +178,8 @@ public class BoardDAO {
 				bDTO.setContent(rs.getString("content"));
 				bDTO.setReadcount(rs.getInt("readcount"));
 				bDTO.setDate(rs.getTimestamp("date"));
+				//file
+				bDTO.setFile(rs.getString("file"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -269,5 +277,27 @@ public class BoardDAO {
 		}
 	}//
 	
+	// int  리턴할형  getBoardCount() 메서드 정의
+	public int getBoardCount() {
+		int count=0;
+		try {
+			//1,2 디비연결
+			con=getConnection();
+			//3 sql
+			String sql="select count(*) from board";
+			pstmt=con.prepareStatement(sql);
+			// 4실행=>결과저장
+			rs=pstmt.executeQuery();
+			//5 rs 다음행으로 접근 열접근 => count변수에 저장
+			if(rs.next()) {
+				count=rs.getInt("count(*)");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return count;
+	}//
 	
 }//클래스

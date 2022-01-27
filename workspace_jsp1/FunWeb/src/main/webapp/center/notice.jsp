@@ -1,3 +1,4 @@
+<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -45,6 +46,31 @@
 <!-- 왼쪽메뉴 -->
 
 <!-- 게시판 -->
+<%
+// 폴더 board 파일이름 BoardDAO
+// BoardDAO 객체생성
+BoardDAO bdDAO=new BoardDAO();
+
+// pageSize 한화면에 보여줄 글개수 설정
+int pageSize=15;
+// pageNum 페이지번호 가져오기
+String pageNum=request.getParameter("pageNum");
+// pageNum없으면 1페이지 설정 
+if(pageNum==null){
+	pageNum="1";
+}
+// startRow 시작하는 행번호 구하기
+// pageNum  pageSize  => startRow 
+//     1        5     =>   (1-1)*5+1=>0*5+1=>0+1=>1 ~5
+//     2        5     =>   (2-1)*5+1=>1*5+1=>5+1=>6 ~10
+//     3        5     =>   (3-1)*5+1=>2*5+1=>10+1=>11 ~15
+int currentPage=Integer.parseInt(pageNum);
+int startRow = (currentPage-1)*pageSize+1;
+// endRow 끝나는 행번호 구하기
+
+// 리턴할형 List  getBoardList(int startRow, int pageSize) 메서드 정의
+// List boardList = getBoardList(startRow, pageSize) 메서드 호출
+%>
 <article>
 <h1>Notice</h1>
 <table id="notice">
@@ -54,35 +80,7 @@
     <th class="tdate">Date</th>
     <th class="tread">Read</th></tr>
 <tr><td>15</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>14</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>13</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>12</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>11</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>10</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>9</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>8</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>7</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>6</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>5</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>4</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>3</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>2</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>
-<tr><td>1</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr>    
+    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr> 
 </table>
 <div id="table_search">
 <input type="text" name="search" class="input_box">
