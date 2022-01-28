@@ -5,23 +5,73 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 public class MemberDAO {
 	//멤버변수 
-
+	private Connection con=null;
+	private PreparedStatement pstmt=null;
+	private ResultSet rs=null;
+	
 	//멤버함수(메서드)
 	
 	//데이터 베이스 연결 메서드 정의 
 	// throws Exception 메서드 호출하는 곳에서 예외처리 함
 	public Connection getConnection() throws Exception{
-		 // 1단계 드라이버 불러오기
-		 Class.forName("com.mysql.jdbc.Driver");
-		 // 2단계 디비연결
-		 String dbUrl="jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
-		 String dbId="root";
-		 String dbPass="1234";
-		 Connection con=DriverManager.getConnection(dbUrl, dbId, dbPass);	
-		 return con;
+//		 // 1단계 드라이버 불러오기
+//		 Class.forName("com.mysql.jdbc.Driver");
+//		 // 2단계 디비연결
+//		 String dbUrl="jdbc:mysql://localhost:3306/jspdb1?useSSL=false";
+//		 String dbId="root";
+//		 String dbPass="1234";
+//		 con=DriverManager.getConnection(dbUrl, dbId, dbPass);	
+//		 return con;
+		
+		// JDBC 설치
+		// WEB-INF - lib - mysql-connector-java-5.1.39-bin.jar
+		//DataBase Connection Pool : 미리 서버에서 연결하고 연결정보를 저장
+		//                           필요할때 연결자원의 이름을 불러서 사용
+		// 수정 1회 최소화, 성능 높아짐 
+		// META-INF context.xml
+		
+		//  context.xml 불러오기 위해 객체생성  import javax.naming.Context;
+		Context init=new InitialContext();
+		// 자원이름 찾아서 불러오기 javax.sql.DataSource
+		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
+		// 디비연결
+		con=ds.getConnection();
+		return con;
+		
+	}
+	
+	// 예외 상관없이 마무리 작업(insert작업이 끝나면 기억장소 정리) =>메서드 정의
+	public void dbClose() {
+		if(rs!=null) {
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if(pstmt!=null) {
+			try {
+				pstmt.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		if(con!=null) {
+			try {
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 	
 	
@@ -43,11 +93,11 @@ public class MemberDAO {
 		try {
 			// 예외가 발생할 가능성이 높은 코드 
 			 // 1단계 드라이버 불러오기 	// 2단계 디비연결  디비연결 메서드호출
-			 Connection con=getConnection();
+			 con=getConnection();
 			 
 			 // 3단계 sql 구문 만들기 insert
 			 String sql="insert into member(id,pass,name,date) values(?,?,?,?)";
-			 PreparedStatement pstmt=con.prepareStatement(sql);
+			 pstmt=con.prepareStatement(sql);
 			 pstmt.setString(1, mDTO.getId());
 			 pstmt.setString(2, mDTO.getPass());
 			 pstmt.setString(3, mDTO.getName());
@@ -60,7 +110,8 @@ public class MemberDAO {
 			// 예외 발생 메시지 출력
 			e.printStackTrace();
 		}finally {
-			// 예외 상관없이 마무리 작업
+			// 예외 상관없이 마무리 작업(insert작업이 끝나면 기억장소 정리)
+			dbClose();
 		}
 		return;
 	}//insertMember()메서드
@@ -71,15 +122,15 @@ public class MemberDAO {
 		try {
 			//예기치 못한 에러 발생 할 명령
 			 // 1단계 드라이버 불러오기 	// 2단계 디비연결  디비연결 메서드호출
-			 Connection con=getConnection();
+			 con=getConnection();
 			 
 			// 3단계 sql 구문 만들기 select * from member where id=? and pass=?
 			String sql="select * from member where id=? and pass=?";
-			PreparedStatement pstmt=con.prepareStatement(sql);
+			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
 			// 4단계 sql 구문 실행 => 결과 저장
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			// 5단계 다음행으로 이동 데이터 있으면 true  mDTO 객체생성  멤버변수에 열접근해서 값저장
 			if(rs.next()){
 				//아이디 비밀번호 일치
@@ -94,6 +145,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			// 에러 상관없이 처리(마무리)
+			dbClose();
 		}
 		return mDTO;
 	}//
@@ -103,14 +155,14 @@ public class MemberDAO {
 		MemberDTO mDTO=null;
 		try {
 			 // 1단계 드라이버 불러오기 	// 2단계 디비연결  디비연결 메서드호출
-			 Connection con=getConnection();
+			con=getConnection();
 			
 			// 3단계 sql구문 만들기  select * from member where id=?
 			String sql="select * from member where id=?";
-			PreparedStatement pstmt=con.prepareStatement(sql);
+			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			// 4단계 sql 구문 실행 => 결과 저장
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			// 5단계 결과 있으면(아이디 일치) - (행접근)다음행(rs.next()) - 열접근 -> 저장
 			if(rs.next()){
 				// true 아이디 일치
@@ -126,6 +178,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			//마무리
+			dbClose();
 		}
 		return mDTO;
 	}//
@@ -134,11 +187,11 @@ public class MemberDAO {
 	public void updateMember(MemberDTO updateDTO) {
 		try {
 			 // 1단계 드라이버 불러오기 	// 2단계 디비연결  디비연결 메서드호출
-			 Connection con=getConnection();
+			 con=getConnection();
 			
 //		 	3단계 update구문만들기 update member set name=? where id=? 
 		 	String sql="update member set name=? where id=?";	
-		 	PreparedStatement pstmt=con.prepareStatement(sql);
+		 	pstmt=con.prepareStatement(sql);
 		 	pstmt.setString(1, updateDTO.getName());
 		 	pstmt.setString(2, updateDTO.getId());
 		 	//4단계 sql구문 실행 	
@@ -147,6 +200,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			//마무리
+			dbClose();
 		}
 		return;
 	}//
@@ -155,11 +209,11 @@ public class MemberDAO {
 	public void deleteMember(String id) {
 		try {
 			 // 1단계 드라이버 불러오기 	// 2단계 디비연결  디비연결 메서드호출
-			 Connection con=getConnection();
+			con=getConnection();
 			
 		 	//3단계 delete구문만들기 delete from member where id=?
 		 	String sql="delete from member where id=?";	
-		 	PreparedStatement pstmt=con.prepareStatement(sql);
+		 	pstmt=con.prepareStatement(sql);
 		 	pstmt.setString(1, id);
 		 	//4단계 sql구문 실행 	
 		 	pstmt.executeUpdate();
@@ -167,8 +221,39 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			//마무리
+			dbClose();
 		}
 	}//
+	
+	// List 리턴할형   getMemberList() 메서드 정의 
+	public List getMemberList() {
+		List memberList=new ArrayList();
+		try {
+			//1,2 디비연결
+			con=getConnection();
+			//3sql
+			String sql="select * from member";
+			pstmt=con.prepareStatement(sql);
+			//4 실행 => 결과저장
+			rs=pstmt.executeQuery();
+			//5 결과 행접근 데이터 있으면 MemberDTO 객체생성 set메서드 호출 열접근 해서 값 저장
+			//       배열한칸에 저장
+			while(rs.next()) {
+				MemberDTO mDTO=new MemberDTO();
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPass(rs.getString("pass"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setDate(rs.getTimestamp("date"));
+				//배열한칸에 저장
+				memberList.add(mDTO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return memberList;
+	}
 	
 	
 }//클래스
