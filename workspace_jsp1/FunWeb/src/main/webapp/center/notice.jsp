@@ -1,3 +1,5 @@
+<%@page import="board.BoardDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -49,7 +51,7 @@
 <%
 // 폴더 board 파일이름 BoardDAO
 // BoardDAO 객체생성
-BoardDAO bdDAO=new BoardDAO();
+BoardDAO bDAO=new BoardDAO();
 
 // pageSize 한화면에 보여줄 글개수 설정
 int pageSize=15;
@@ -67,9 +69,11 @@ if(pageNum==null){
 int currentPage=Integer.parseInt(pageNum);
 int startRow = (currentPage-1)*pageSize+1;
 // endRow 끝나는 행번호 구하기
+int endRow=startRow+pageSize-1;
 
 // 리턴할형 List  getBoardList(int startRow, int pageSize) 메서드 정의
 // List boardList = getBoardList(startRow, pageSize) 메서드 호출
+List boardList=bDAO.getBoardList(startRow, pageSize);
 %>
 <article>
 <h1>Notice</h1>
@@ -79,8 +83,19 @@ int startRow = (currentPage-1)*pageSize+1;
     <th class="twrite">Writer</th>
     <th class="tdate">Date</th>
     <th class="tread">Read</th></tr>
-<tr><td>15</td><td class="left">Vivanus viveer portitor commodo.</td>
-    <td>Host Admin</td><td>2012.11.06</td><td>15</td></tr> 
+    <%
+    for(int i=0; i<boardList.size();i++){
+    	BoardDTO bDTO=(BoardDTO)boardList.get(i);
+    	%>
+<tr><td><%=bDTO.getNum() %></td>
+    <td class="left"><%=bDTO.getSubject() %></td>
+    <td><%=bDTO.getName() %></td>
+    <td><%=bDTO.getDate() %></td>
+    <td><%=bDTO.getReadcount() %></td></tr>    	
+    	<%
+    }
+    %>
+ 
 </table>
 <div id="table_search">
 <input type="text" name="search" class="input_box">
