@@ -61,8 +61,9 @@ public class BoardDAO {
 		
 	
 	// 리턴할형 List  getBoardList(int startRow, int pageSize) 메서드 정의
-		public List getBoardList(int startRow, int pageSize) {
-			List boardList=new ArrayList();
+		public List<BoardDTO> getBoardList(int startRow, int pageSize) {
+//			List boardList=new ArrayList();
+			List<BoardDTO> boardList=new ArrayList<BoardDTO>();
 			try {
 				//1,2 디비연결
 				con=getConnection();
@@ -96,6 +97,98 @@ public class BoardDAO {
 			return boardList;
 		}//
 		
+		// int  리턴할형  getBoardCount() 메서드 정의
+		public int getBoardCount() {
+			int count=0;
+			try {
+				//1,2 디비연결
+				con=getConnection();
+				//3 sql
+				String sql="select count(*) from board";
+				pstmt=con.prepareStatement(sql);
+				// 4실행=>결과저장
+				rs=pstmt.executeQuery();
+				//5 rs 다음행으로 접근 열접근 => count변수에 저장
+				if(rs.next()) {
+					count=rs.getInt("count(*)");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				dbClose();
+			}
+			return count;
+		}//
+		
+		//리턴할값없음 updateReadcount(int num) 메서드 정의
+		public void updateReadcount(int num) {
+			try {
+				//1,2 디비연결
+				con=getConnection();
+				//3 sql
+				String sql="update board set readcount=readcount+1 where num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				//4 실행
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				dbClose();
+			}
+		}//
+		
+		//BoardDTO 리턴할형 getBoard(int num)메서드 정의
+		public BoardDTO getBoard(int num) {
+			BoardDTO bDTO=null;
+			try {
+				//1,2 디비연결
+				con=getConnection();
+				//3 sql
+				String sql="select * from board where num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				//4 실행 => 결과저장
+				rs=pstmt.executeQuery();
+				//5 결과 => BoardDTO 저장
+				while(rs.next()) {
+					//다음행 데이터 있으면 true => 열접근 => BoardDTO 멤버변수 저장
+					bDTO=new BoardDTO();
+					bDTO.setNum(rs.getInt("num"));
+					bDTO.setPass(rs.getString("pass"));
+					bDTO.setName(rs.getString("name"));
+					bDTO.setSubject(rs.getString("subject"));
+					bDTO.setContent(rs.getString("content"));
+					bDTO.setReadcount(rs.getInt("readcount"));
+					bDTO.setDate(rs.getTimestamp("date"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				dbClose();
+			}
+			return bDTO;
+		}//
+		
+		// 리턴할형 없음   updateBoard(BoardDTO updateDTO) 메서드 정의
+		public void updateBoard(BoardDTO updateDTO) {
+			try {
+				//1,2 디비연결
+				con=getConnection();
+				//3 sql
+				String sql="update board set subject=?,content=? where num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, updateDTO.getSubject());
+				pstmt.setString(2, updateDTO.getContent());
+				pstmt.setInt(3, updateDTO.getNum());
+				//4 실행
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				dbClose();
+			}
+		}//
 	
 }//클래스
 
