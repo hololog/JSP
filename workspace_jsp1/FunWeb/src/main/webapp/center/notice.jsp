@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="board.BoardDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="board.BoardDAO"%>
@@ -73,7 +74,12 @@ int endRow=startRow+pageSize-1;
 
 // 리턴할형 List  getBoardList(int startRow, int pageSize) 메서드 정의
 // List boardList = getBoardList(startRow, pageSize) 메서드 호출
-List boardList=bDAO.getBoardList(startRow, pageSize);
+
+// List boardList=bDAO.getBoardList(startRow, pageSize);
+List<BoardDTO> boardList=bDAO.getBoardList(startRow, pageSize);
+
+// 날짜 => 모양변경 => String 문자열 변경
+SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>
 <article>
 <h1>Notice</h1>
@@ -85,13 +91,16 @@ List boardList=bDAO.getBoardList(startRow, pageSize);
     <th class="tread">Read</th></tr>
     <%
     for(int i=0; i<boardList.size();i++){
-    	BoardDTO bDTO=(BoardDTO)boardList.get(i);
+//     	BoardDTO bDTO=(BoardDTO)boardList.get(i);
+		BoardDTO bDTO=boardList.get(i);
     	%>
-<tr><td><%=bDTO.getNum() %></td>
+<tr onclick="location.href='content.jsp?num=<%=bDTO.getNum()%>'">
+    <td><%=bDTO.getNum() %></td>
     <td class="left"><%=bDTO.getSubject() %></td>
     <td><%=bDTO.getName() %></td>
-    <td><%=bDTO.getDate() %></td>
-    <td><%=bDTO.getReadcount() %></td></tr>    	
+    <td><%=dateFormat.format(bDTO.getDate())%></td>
+    <td><%=bDTO.getReadcount() %></td>
+</tr>    	
     	<%
     }
     %>
@@ -103,12 +112,52 @@ List boardList=bDAO.getBoardList(startRow, pageSize);
 </div>
 <div class="clear"></div>
 <div id="page_control">
-<a href="#">Prev</a>
-<a href="#">1</a><a href="#">2</a><a href="#">3</a>
-<a href="#">4</a><a href="#">5</a><a href="#">6</a>
-<a href="#">7</a><a href="#">8</a><a href="#">9</a>
-<a href="#">10</a>
-<a href="#">Next</a>
+<%
+// 한화면에 보여줄 페이지 개수 
+int pageBlock=10;
+// 시작하는 페이지번호 
+// 00~09  /10    =>0 ,  10~19 /10 =>1 , 20~29/10 => 2   , 정수형/정수형 => 정수형
+// currentPage         pageBlock => startPage
+//    1~10 (00~09)       10     => (페이지-1)/10*10+1 =>0*10+1=> 0+1=>1
+//    11~20(10~19)       10     => (페이지-1)/10*10+1 =>1*10+1=>10+1=>11
+//    21~30(20~29)       10     => (페이지-1)/10*10+1 =>2*10+1=>20+1=>21
+int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+//끝나는 페이지번호
+// startPage   pageBlock  => endPage
+//    1            10     =>   10
+//    11           10     =>   20
+//    21           10     =>   30
+int endPage=startPage+pageBlock-1;
+
+//전체 글개수 구하기 => 디비에서 가져오기
+//int  리턴할형  getBoardCount() 메서드 정의
+//select count(*) from board
+int count=bDAO.getBoardCount();
+
+//전체 페이지수 구하기 
+//게시판글 50개  한화면에 보여줄 글개수 10개 => 전체페이지수 5
+//50/10 => 5   + 나머지 없으면 0페이지 추가
+//57/10 => 5   + 나머지글은  1페이지 추가
+int pageCount=count / pageSize +  (count % pageSize == 0 ?0:1);
+
+if(endPage > pageCount){
+	endPage = pageCount;
+}
+//이전
+if(startPage > pageBlock){
+	%><a href="notice.jsp?pageNum=<%=startPage-pageBlock%>">Prev</a><%
+}
+
+// 1~10
+for(int i=startPage;i<=endPage;i++){
+	%><a href="notice.jsp?pageNum=<%=i%>"><%=i %> </a><%
+}
+
+//다음
+if(endPage < pageCount){
+	%><a href="notice.jsp?pageNum=<%=startPage+pageBlock%>">Next</a><%	
+}
+%>
 </div>
 </article>
 <!-- 게시판 -->
