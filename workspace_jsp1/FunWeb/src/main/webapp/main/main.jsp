@@ -1,3 +1,7 @@
+<%@page import="board.BoardDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="board.BoardDAO"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -77,16 +81,25 @@ quis ante......</dd>
 <div id="news_notice">
 <h3 class="brown">News &amp; Notice</h3>
 <table>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
+<%
+// 최근글 5개 출력
+int pageSize=5;
+int startRow =1;
+// BoardDAO 객체생성
+BoardDAO bDAO=new BoardDAO();
+//List<BoardDTO> boardList = getBoardList(startRow, pageSize) 메서드 호출
+List<BoardDTO> boardList =bDAO.getBoardList(startRow, pageSize);
+
+// 날짜 => 모양변경 => String 문자열 변경
+SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
+for(int i=0;i<boardList.size();i++){
+	BoardDTO bDTO=boardList.get(i);
+	%>
+	<tr><td class="contxt"><a href="#"><%=bDTO.getSubject() %></a></td>
+  		<td><%=dateFormat.format(bDTO.getDate()) %></td></tr>		
+	<%
+}
+%>
 </table>
 </div>
 </article>
