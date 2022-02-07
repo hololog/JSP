@@ -85,6 +85,9 @@ public class BoardDAO {
 					bDTO.setContent(rs.getString("content"));
 					bDTO.setReadcount(rs.getInt("readcount"));
 					bDTO.setDate(rs.getTimestamp("date"));
+					//file이름 저장
+					bDTO.setFile(rs.getString("file"));
+					
 					//배열한칸에 순서대로 저장
 					// BoardDTO형을 모든형(Object)으로 잠시 변경해서 저장=> 업캐스팅
 					boardList.add(bDTO);
@@ -161,6 +164,8 @@ public class BoardDAO {
 					bDTO.setContent(rs.getString("content"));
 					bDTO.setReadcount(rs.getInt("readcount"));
 					bDTO.setDate(rs.getTimestamp("date"));
+					//file이름 저장
+					bDTO.setFile(rs.getString("file"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -176,11 +181,12 @@ public class BoardDAO {
 				//1,2 디비연결
 				con=getConnection();
 				//3 sql
-				String sql="update board set subject=?,content=? where num=?";
+				String sql="update board set subject=?,content=?,file=? where num=?";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, updateDTO.getSubject());
 				pstmt.setString(2, updateDTO.getContent());
-				pstmt.setInt(3, updateDTO.getNum());
+				pstmt.setString(3, updateDTO.getFile());
+				pstmt.setInt(4, updateDTO.getNum());
 				//4 실행
 				pstmt.executeUpdate();
 			} catch (Exception e) {
@@ -189,6 +195,74 @@ public class BoardDAO {
 				dbClose();
 			}
 		}//
+		
+		// 리턴할형 없음   deleteBoard(int num) 메서드 정의
+		public void deleteBoard(int num) {
+			try {
+				//1,2 디비연결
+				con=getConnection();
+				//3 sql
+				String sql="delete from board where num=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				//4 실행
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				dbClose();
+			}
+		}//
+		
+		//리턴할형 int  getMaxNum()메서드 정의
+		public int getMaxNum() {
+			int num=0;
+			try {
+				//1,2 디비연결
+				con=getConnection();
+				//3 sql
+				String sql="select max(num) from board";
+				pstmt=con.prepareStatement(sql);
+				//4 실행 => 결과저장
+				rs=pstmt.executeQuery();
+				//5 결과 => BoardDTO 저장
+				if(rs.next()) {
+					num=rs.getInt("max(num)");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				dbClose();
+			}
+			return num;
+		}//
+		
+		// 리턴할형없음 insertBoard(BoardDTO 주소받을변수) 메서드 정의
+		public void insertBoard(BoardDTO bDTO) {
+			try {
+				//1,2 디비연결
+				con=getConnection();
+				//3 sql
+				String sql="insert into board(num,pass,name,subject,content,readcount,date,file) values(?,?,?,?,?,?,?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, bDTO.getNum());
+				pstmt.setString(2, bDTO.getPass());
+				pstmt.setString(3, bDTO.getName());
+				pstmt.setString(4, bDTO.getSubject());
+				pstmt.setString(5, bDTO.getContent());
+				pstmt.setInt(6, bDTO.getReadcount());
+				pstmt.setTimestamp(7, bDTO.getDate());
+				//file추가
+				pstmt.setString(8, bDTO.getFile());
+				//4 실행
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				dbClose();
+			}
+		}//
+		
 	
 }//클래스
 

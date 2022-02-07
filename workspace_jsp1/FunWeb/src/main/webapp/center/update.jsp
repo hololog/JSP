@@ -40,10 +40,9 @@
 <!-- 왼쪽메뉴 -->
 <nav id="sub_menu">
 <ul>
-<li><a href="#">Notice</a></li>
-<li><a href="#">Public News</a></li>
-<li><a href="#">Driver Download</a></li>
-<li><a href="#">Service Policy</a></li>
+<li><a href="../center/notice.jsp">Notice</a></li>
+<li><a href="../fcenter/fnotice.jsp">자료실</a></li>
+<li><a href="../gcenter/gnotice.jsp">갤러리</a></li>
 </ul>
 </nav>
 <!-- 왼쪽메뉴 -->

@@ -63,13 +63,17 @@ bDAO.updateReadcount(num);
 BoardDTO bDTO=bDAO.getBoard(num);
 %>
 <article>
-<h1>Notice Content</h1>
+<h1>갤러리 Notice Content</h1>
 <table id="notice">
 <tr><td>글번호</td><td><%=bDTO.getNum() %></td>
      <td>글쓴날짜</td><td><%=bDTO.getDate() %></td></tr>
 <tr><td>글쓴이</td><td><%=bDTO.getName() %></td>
     <td>조회수</td><td><%=bDTO.getReadcount() %></td></tr>
 <tr><td>글제목</td><td colspan="3"><%=bDTO.getSubject() %></td></tr>
+<tr><td>파일</td>
+    <td colspan="3"><a href="../upload/<%=bDTO.getFile() %>" download><%=bDTO.getFile() %></a>
+    <img src="../upload/<%=bDTO.getFile()%>" width="100" height="100">
+    </td></tr>
 <tr><td>글내용</td><td colspan="3"><%=bDTO.getContent() %></td></tr>
 </table>
 <div id="table_search">
@@ -81,13 +85,13 @@ String id=(String)session.getAttribute("id");
 if(id!=null){
 	if(id.equals(bDTO.getName())){
 		%>
-<input type="button" value="글수정" class="btn" onclick="location.href='update.jsp?num=<%=bDTO.getNum()%>'">
-<input type="button" value="글삭제" class="btn" onclick="location.href='delete.jsp?num=<%=bDTO.getNum()%>'">		
+<input type="button" value="글수정" class="btn" onclick="location.href='gupdate.jsp?num=<%=bDTO.getNum()%>'">
+<input type="button" value="글삭제" class="btn" onclick="location.href='gdelete.jsp?num=<%=bDTO.getNum()%>'">		
 		<%
 	}
 }
 %>
-<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+<input type="button" value="글목록" class="btn" onclick="location.href='gnotice.jsp'">
 </div>
 <div class="clear"></div>
 <div id="page_control">

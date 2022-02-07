@@ -53,42 +53,32 @@
 int num = Integer.parseInt(request.getParameter("num"));
 // BoardDAO 객체생성
 BoardDAO bDAO=new BoardDAO();
-//조회수 1증가  update board set readcount=readcount+1 where num=?
-//리턴할값없음 updateReadcount(int num) 메서드 정의
-//updateReadcount(num)메서드 호출
-bDAO.updateReadcount(num);
 
-//BoardDTO 리턴할형 getBoard(int num)메서드 정의
 //BoardDTO bDTO=  getBoard(num) 메서드 호출
 BoardDTO bDTO=bDAO.getBoard(num);
 %>
 <article>
-<h1>Notice Content</h1>
+<h1>File Notice Update</h1>
+<form action="fupdatePro.jsp" method="post" enctype="multipart/form-data">
+<input type="hidden" name="num" value="<%=bDTO.getNum()%>">
 <table id="notice">
-<tr><td>글번호</td><td><%=bDTO.getNum() %></td>
-     <td>글쓴날짜</td><td><%=bDTO.getDate() %></td></tr>
-<tr><td>글쓴이</td><td><%=bDTO.getName() %></td>
-    <td>조회수</td><td><%=bDTO.getReadcount() %></td></tr>
-<tr><td>글제목</td><td colspan="3"><%=bDTO.getSubject() %></td></tr>
-<tr><td>글내용</td><td colspan="3"><%=bDTO.getContent() %></td></tr>
+<tr><td>이름</td>
+    <td><input type="text" name="name" value="<%=bDTO.getName() %>" readonly></td></tr>
+<tr><td>제목</td>
+    <td><input type="text" name="subject" value="<%=bDTO.getSubject()%>"></td></tr>
+<tr><td>파일</td>
+    <td><input type="file" name="file"><%=bDTO.getFile()%>
+    <input type="hidden" name="oldfile" value="<%=bDTO.getFile()%>"></td></tr>    
+<tr><td>내용</td>
+    <td><textarea name="content" rows="10" cols="20"><%=bDTO.getContent()%></textarea></td></tr>
 </table>
+
 <div id="table_search">
-<%
-// 세션값 가져오기
-String id=(String)session.getAttribute("id");
-// 세션값이 있으면 
-// 세션값(로그인)과  글쓴이 일치하면 
-if(id!=null){
-	if(id.equals(bDTO.getName())){
-		%>
-<input type="button" value="글수정" class="btn" onclick="location.href='update.jsp?num=<%=bDTO.getNum()%>'">
-<input type="button" value="글삭제" class="btn" onclick="location.href='delete.jsp?num=<%=bDTO.getNum()%>'">		
-		<%
-	}
-}
-%>
-<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+<input type="submit" value="글수정" class="btn">
+<input type="button" value="글목록" class="btn" onclick="location.href='fnotice.jsp'">
 </div>
+</form>
+
 <div class="clear"></div>
 <div id="page_control">
 

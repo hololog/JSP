@@ -81,7 +81,7 @@ List<BoardDTO> boardList=bDAO.getBoardList(startRow, pageSize);
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>
 <article>
-<h1>Notice</h1>
+<h1>File Notice</h1>
 <table id="notice">
 <tr><th class="tno">No.</th>
     <th class="ttitle">Title</th>
@@ -93,7 +93,7 @@ SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 //     	BoardDTO bDTO=(BoardDTO)boardList.get(i);
 		BoardDTO bDTO=boardList.get(i);
     	%>
-<tr onclick="location.href='content.jsp?num=<%=bDTO.getNum()%>'">
+<tr onclick="location.href='fcontent.jsp?num=<%=bDTO.getNum()%>'">
     <td><%=bDTO.getNum() %></td>
     <td class="left"><%=bDTO.getSubject() %></td>
     <td><%=bDTO.getName() %></td>
@@ -112,7 +112,7 @@ String id=(String)session.getAttribute("id");
 // 세션값이 있으면 글쓰기 버튼 보이기
 if(id!=null){
 	%>
-<input type="button" value="글쓰기" class="btn" onclick="location.href='write.jsp'">	
+<input type="button" value="글쓰기" class="btn" onclick="location.href='fwrite.jsp'">	
 	<%
 }
 %>
@@ -158,17 +158,17 @@ if(endPage > pageCount){
 }
 //이전
 if(startPage > pageBlock){
-	%><a href="notice.jsp?pageNum=<%=startPage-pageBlock%>">Prev</a><%
+	%><a href="fnotice.jsp?pageNum=<%=startPage-pageBlock%>">Prev</a><%
 }
 
 // 1~10
 for(int i=startPage;i<=endPage;i++){
-	%><a href="notice.jsp?pageNum=<%=i%>"><%=i %> </a><%
+	%><a href="fnotice.jsp?pageNum=<%=i%>"><%=i %> </a><%
 }
 
 //다음
 if(endPage < pageCount){
-	%><a href="notice.jsp?pageNum=<%=startPage+pageBlock%>">Next</a><%	
+	%><a href="fnotice.jsp?pageNum=<%=startPage+pageBlock%>">Next</a><%	
 }
 %>
 </div>
