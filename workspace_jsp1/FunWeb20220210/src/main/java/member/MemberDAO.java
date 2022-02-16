@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -197,6 +199,42 @@ public class MemberDAO {
 		}finally {
 			dbClose();
 		}
+	}//
+	
+	// 리턴할형을 List<MemberDTO>  getMemberList() 메서드 정의
+	public List<MemberDTO> getMemberList(){
+		List<MemberDTO> memberList=new ArrayList<MemberDTO>();
+		try {
+			//1,2 디비연결
+			con=getConnection();
+			//3 sql
+			String sql="select * from member";
+			pstmt=con.prepareStatement(sql);
+			//4 실행 -> 결과 저장
+			rs=pstmt.executeQuery();
+			//5 결과 행접근 MemberDTO 객체생성 set메서드호출 열접근해서 저장
+			while(rs.next()) {
+				//첫행 이동 데이터 있으면 true 아이디  일치
+				// MemberDTO 객체생성
+				MemberDTO mDTO=new MemberDTO();
+				// 열접근해서 멤버변수에 set호출하면서 열에서 가져온 값을 저장
+				mDTO.setId(rs.getString("id"));
+				mDTO.setPass(rs.getString("pass"));
+				mDTO.setName(rs.getString("name"));
+				mDTO.setDate(rs.getTimestamp("date"));
+				mDTO.setAddress(rs.getString("address"));
+				mDTO.setEmail(rs.getString("email"));
+				mDTO.setPhone(rs.getString("phone"));
+				mDTO.setMobile(rs.getString("mobile"));
+				// 배열한칸에 저장
+				memberList.add(mDTO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbClose();
+		}
+		return memberList;
 	}//
 	
 }//클래스

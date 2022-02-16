@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery/json2.html</title>
+<script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// 버튼을 클릭했을때  json2.jsp에서 json데이터 가져와서 반복문을 이용해서 접근 테이블태그에 추가
+		$('#btn').click(function(){
+// 			alert("클릭");
+			$.ajax({
+				url:"json2.jsp",
+				dataType:"json",
+				success:function(rdata){
+					
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+<input type="button" value="버튼" id="btn">
+<table border="1">
+<tr><td>아이디</td><td>이름</td></tr>
+</table>
+</body>
+</html>
+
+
+

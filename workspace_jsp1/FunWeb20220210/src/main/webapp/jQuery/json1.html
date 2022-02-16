@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery/json1.html</title>
+<script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//id="btn" 클릭했을때
+		$('#btn').click(function(){
+// 			alert("클릭");
+			$.ajax({
+				url:"json1.jsp",
+				dataType:"json",
+				success:function(rdata){
+					// 반복해서 table 출력 
+					$.each(rdata,function(index,item){
+			$('table').append("<tr><td>"+item.id+"</td><td>"+item.name+"</td></tr>");
+					});
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+<input type="button" value="버튼" id="btn">
+<table border="1">
+<tr><td>아이디</td><td>이름</td></tr>
+</table>
+</body>
+</html>
