@@ -13,11 +13,16 @@
 				url:"json2.jsp",
 				dataType:"json",
 				success:function(rdata){
-					
+					$.each(rdata,function(index,item){
+// 						alert(item.id);
+		$('table').append("<tr><td>"+item.id+"</td><td>"+item.name+"</td></tr>");
+					});
 				}
-			});
-		});
-	});
+			});//
+			//이벤트 한번수행하고 해제
+			$(this).unbind();
+		});//
+	});//
 </script>
 </head>
 <body>
