@@ -34,6 +34,65 @@
 		window.open("userCheck.jsp?id="+id,"","width=400,height=300");
 	}
  </script>
+ <script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+ <script type="text/javascript">
+ 	$(document).ready(function(){
+ 		$('#join').submit(function(){
+//  			alert("전송");
+				// 아이디 비밀번호 이름 이메일 비어있으면 제어
+				if($('#id').val()==""){
+					alert("아이디 입력하세요");
+					$('#id').focus();
+					return false;
+				}
+				
+				if($('#pass').val()==""){
+					alert("비밀번호 입력하세요");
+					$('#pass').focus();
+					return false;
+				}
+				if($('#pass').val()!=$('#pass2').val()){
+					alert("비밀번호 틀림 입력하세요");
+					$('#pass2').focus();
+					return false;
+				}
+				
+				if($('#name').val()==""){
+					alert("이름 입력하세요");
+					$('#name').focus();
+					return false;
+				}
+				
+				if($('#email').val()==""){
+					alert("이메일 입력하세요");
+					$('#email').focus();
+					return false;
+				}
+				if($('#email').val()!=$('#email2').val()){
+					alert("이메일 틀림 입력하세요");
+					$('#email2').focus();
+					return false;
+				}
+ 		});//
+ 		
+ 		//아이디 중복체크
+ 		// class="dup" 버튼을 클릭했을때 
+ 		$('.dup').click(function(){
+//  			alert("클릭");
+			$.ajax({
+				url:"userCheck2.jsp",
+				data:{"id":$('#id').val()},
+				success:function(rdata){
+					// id="divdup" 에 리턴받은 값 넣기
+					$('#divdup').html(rdata);
+				}
+			});//
+
+ 		});//
+ 		
+ 		
+ 	});//
+ </script>
 </head>
 <body>
 <div id="wrap">
@@ -59,19 +118,23 @@
 <form action="joinPro.jsp" id="join" method="post" name="fr">
 <fieldset>
 <legend>Basic Info</legend>
+
 <label>User ID</label>
-<input type="text" name="id" class="id">
-<input type="button" value="dup. check" class="dup" onclick="userCheck()"><br>
+<input type="text" name="id" class="id" id="id">
+<!-- onclick="userCheck()" -->
+<input type="button" value="dup. check" class="dup" ><br>
+<label></label><div id="divdup">중복체크 하세요</div>
+
 <label>Password</label>
-<input type="password" name="pass"><br>
+<input type="password" name="pass" id="pass"><br>
 <label>Retype Password</label>
-<input type="password" name="pass2"><br>
+<input type="password" name="pass2" id="pass2"><br>
 <label>Name</label>
-<input type="text" name="name"><br>
+<input type="text" name="name" id="name"><br>
 <label>E-Mail</label>
-<input type="email" name="email"><br>
+<input type="email" name="email" id="email"><br>
 <label>Retype E-Mail</label>
-<input type="email" name="email2"><br>
+<input type="email" name="email2" id="email2"><br>
 </fieldset>
 
 <fieldset>
