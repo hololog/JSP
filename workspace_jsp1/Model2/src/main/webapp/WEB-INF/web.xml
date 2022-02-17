@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+<!--   .me 가상주소 => 서블릿 지정 -->
+<servlet>
+	<servlet-name>MemberController</servlet-name>
+	<servlet-class>com.itwillbs.controller.MemberController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>MemberController</servlet-name>
+	<url-pattern>*.me</url-pattern>
+</servlet-mapping>
+
 </web-app>
