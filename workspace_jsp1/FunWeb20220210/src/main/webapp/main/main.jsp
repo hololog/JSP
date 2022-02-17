@@ -27,8 +27,26 @@
 
  </script>
  <![endif]--> 
-
-
+<script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// class="brown" 클릭했을때
+		$('.brown').click(function(){
+// 			alert("클릭");  
+//          mainjson.jsp  getBoardList()호출 최근글 5개를 가져와서 => json형태로 변경
+//  ajax json데이터를 가져와서 each반복해서 추가 <tr><td class="contxt"></td><td></td></tr>
+			$.ajax({
+				url:"mainjson.jsp",
+				dataType:"json",
+				success:function(rdata){
+					$.each(rdata,function(index,item){
+$('table').append('<tr><td class="contxt"><a href="../center/content.jsp?num='+item.num+'">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
+					});
+				}
+			});
+		});
+	});
+</script>
 </head>
 <body>
 <div id="wrap">
@@ -82,26 +100,26 @@ quis ante......</dd>
 <h3 class="brown">News &amp; Notice</h3>
 <table>
 <%
-// 최근글 5개 출력
-int pageSize=5;
-int startRow =1;
-// BoardDAO 객체생성
-BoardDAO bDAO=new BoardDAO();
-//List<BoardDTO> boardList = getBoardList(startRow, pageSize) 메서드 호출
-List<BoardDTO> boardList =bDAO.getBoardList(startRow, pageSize);
+// // 최근글 5개 출력
+// int pageSize=5;
+// int startRow =1;
+// // BoardDAO 객체생성
+// BoardDAO bDAO=new BoardDAO();
+// //List<BoardDTO> boardList = getBoardList(startRow, pageSize) 메서드 호출
+// List<BoardDTO> boardList =bDAO.getBoardList(startRow, pageSize);
 
-// 날짜 => 모양변경 => String 문자열 변경
-SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
-for(int i=0;i<boardList.size();i++){
-	BoardDTO bDTO=boardList.get(i);
+// // 날짜 => 모양변경 => String 문자열 변경
+// SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
+// for(int i=0;i<boardList.size();i++){
+// 	BoardDTO bDTO=boardList.get(i);
 	%>
-	<tr><td class="contxt">
-	<a href="../center/content.jsp?num=<%=bDTO.getNum()%>">
-	<%=bDTO.getSubject() %></a>
-	</td>
-  		<td><%=dateFormat.format(bDTO.getDate()) %></td></tr>		
+<!-- 	<tr><td class="contxt"> -->
+<%-- 	<a href="../center/content.jsp?num=<%=bDTO.getNum()%>"> --%>
+<%-- 	<%=bDTO.getSubject() %></a> --%>
+<!-- 	</td> -->
+<%--   		<td><%=dateFormat.format(bDTO.getDate()) %></td></tr>		 --%>
 	<%
-}
+// }
 %>
 </table>
 </div>
