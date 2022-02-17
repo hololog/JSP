@@ -22,6 +22,11 @@
 			//이벤트 한번수행하고 해제
 			$(this).unbind();
 		});//
+		
+		$('table').click(function(){
+			$('table').html("<tr><td>아이디</td><td>이름</td></tr>");
+		});
+		
 	});//
 </script>
 </head>
