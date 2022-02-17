@@ -573,6 +573,73 @@ num   subject
 1. 주제정하기 : 개인 홍보사이트 , 관심 분야 사이트,...
 
 
+프로젝트 import
+File - import - Web - WAR file - Next
+WAR file Browse 클릭 - war파일 선택 - Finish
+
+=> 자바버전 16 -> 1.8 설정 변경
+프로젝트 - 오른쪽 버튼 - Properties -
+Java Compiler - JDK Compliance - 체크해제 - 1.8변경
+Project Facets - Java 1.8 변경
+Apply and Close
+
+//member테이블에 저장할 열 추가
+cmd
+mysql -uroot -p jspdb1
+1234
+
+alter table member
+add email varchar(30);
+
+alter table member
+add address varchar(50);
+
+alter table member
+add phone varchar(30);
+
+alter table member
+add mobile varchar(30);
+
+//우편번호 검색 API 
+상세주소 address2
+
+우편번호 postcode
 
 
+//board 테이블에 저장할 열 추가
+cmd
+mysql -uroot -p jspdb1
+1234
+
+alter table board
+add file varchar(200);
+
+
+jdbc:mysql://localhost:3306/jspdb?serverTimezone=Asia/Seoul
+
+url="jdbc:mysql://localhost:3306/jspdb1?serverTimezone=Asia/Seoul"
+
+디비백업파일 만들기
+cmd
+C:\Users\ITWILL>mysqldump -uroot -p jspdb1 > db.sql
+Enter password: 1234
+
+
+//member 테이블에 우편번호 저장할 열 추가
+cmd
+mysql -uroot -p jspdb1
+1234
+
+alter table member
+add postcode varchar(6);
+
+alter table member
+add address2 varchar(50);
+
+2022년 3월 3일(목)
+인터페이스 구현
+실기시험 3문제
+1. jQuery 화면제어 
+2. ajax 아이디 중복체크
+3. ajax json 목록 가져와서 출력
 
