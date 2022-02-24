@@ -7,7 +7,7 @@
 <title>member/loginForm.jsp</title>
 </head>
 <body>
-<form action="loginPro.jsp" method="post">
+<form action="loginPro.me" method="post">
 아이디 : <input type="text" name="id"><br>
 비밀번호 : <input type="password" name="pass"><br>
 <input type="submit" value="로그인">

@@ -7,7 +7,7 @@
 <title>board/writeForm.jsp</title>
 </head>
 <body>
-<form action="writePro.jsp" method="post">
+<form action="writePro" method="post">
 <table border="1">
 <tr><td>이름</td><td><input type="text" name="name"></td></tr>
 <tr><td>비밀번호</td><td><input type="password" name="pass"></td></tr>
