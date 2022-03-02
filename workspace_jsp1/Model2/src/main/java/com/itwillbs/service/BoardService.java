@@ -35,4 +35,11 @@ public class BoardService {
 		return count;
 	}
 	
+	public BoardDTO getBoard(int num) {
+		// BoardDAO 객체생성
+		BoardDAO boardDAO=new BoardDAO();
+		BoardDTO boardDTO=boardDAO.getBoard(num);
+		return boardDTO;
+	}
+	
 }//

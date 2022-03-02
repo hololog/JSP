@@ -107,6 +107,18 @@ public class BoardController extends HttpServlet{
 			// 이동 board/list.jsp 이동
 			RequestDispatcher dispatcher=request.getRequestDispatcher("board/list.jsp");
 			dispatcher.forward(request, response);
+		}else if(substringPath.equals("/content")) {
+			// num파라미터 
+			int num=Integer.parseInt(request.getParameter("num"));
+			// BoardService 객체생성
+			BoardService boardService=new BoardService();
+			// BoardDTO bDTO = getBoard(num) 호출
+			BoardDTO bDTO=boardService.getBoard(num);
+			// 데이터 request 담아서
+			request.setAttribute("bDTO", bDTO);
+			// content.jsp 이동
+			RequestDispatcher dispatcher=request.getRequestDispatcher("board/content.jsp");
+			dispatcher.forward(request, response);
 		}
 		
 	}//

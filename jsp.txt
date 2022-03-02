@@ -683,7 +683,7 @@ JSP 모델2(MVC) => 자바:M(디비) + 자바:C(처리) + JSP:V(화면)
 //       response 내장객체 객체생성(서버 처리결과정보 저장공간 만들기) 
 // 2. web.xml 참조(처리 담당자 지정:사용자가 직접 서블릿 지정) 
 
-// => insert.me 가상주소 => 서블릿 지정(처리담당자 지정) 
+// => insert.me 가상주소 => 서블릿 지정(MemberController 처리담당자 지정) 
 // => 자동으로 메서드 동작 doGet() , doPost(), service()
 // => 처리담당자  가상주소 insert.me     파일 insertForm.jsp  연결시켜주는 명령
 // =>           가상주소 insertPro.me  자바 insertPro메서드 호출 (자바 디비메서드호출) 
@@ -694,6 +694,167 @@ JSP 모델2(MVC) => 자바:M(디비) + 자바:C(처리) + JSP:V(화면)
 // => 웹 서버가 찾은 파일을 http전달 
 // => http는 사용자 컴퓨터 전달
 // => request, response, 처리담당자 서블릿 => 소멸
+
+
+   가상주소 write     파일 writeForm.jsp 
+=> 가상주소 writePro  자바 writePro메서드 호출 (자바 디비메서드호출) 
+=> 가상주소 list      파일 list.jsp (자바 디비메서드호출)
+=> 가상주소 content   파일 content.jsp (자바 디비메서드호출)
+=> 가상주소 update     파일 updateForm.jsp(디비메서드호출) 
+=> 가상주소 updatePro  자바 updatePro 메서드 호출(디비)
+=> 가상주소 delete     파일 deleteForm.jsp 
+=> 가상주소 deletePro  자바 deletePro 메서드 호출(디비)
+
+프레임워크 : 뼈대를 이루는 코드들의 묶음
+스프링 프레임워크 : 대중적 경량 프레임워크 , 코드 간결, 반복작업 없어짐
+              : 전자정부표준프레임워크
+스프링 버전 : 2.5, 3, 4, 5
+스프링 툴(STS) : 3, 4
+
+설치 
+1. 스프링 툴(STS) 다운
+
+spring.io
+Projects - Spring tool 4 
+4.13.1 - WINDOWS X86_64
+spring-tool-suite-4-4.13.1.RELEASE-e4.22.0-win32.win32.x86_64.self-extracting.jar
+
+JDK1.8
+https://github.com/spring-projects/sts4/wiki/Previous-Versions
+
+Spring Tools 4.12.0 (Changelog)
+https://download.springsource.com/release/STS4/4.12.0.RELEASE/dist/e4.21/spring-tool-suite-4-4.12.0.RELEASE-e4.21.0-win32.win32.x86_64.self-extracting.jar
+
+spring-tool-suite-4-4.12.0.RELEASE-e4.21.0-win32.win32.x86_64.self-extracting.jar
+
+1) c: 압축풀기
+C:\spring-tool-suite-4-4.12.0.RELEASE-e4.21.0-win32.win32.x86_64.self-extracting
+contents.zip 압축풀기
+
+C:\spring-tool-suite-4-4.12.0.RELEASE-e4.21.0-win32.win32.x86_64.self-extracting\contents\sts-4.12.0.RELEASE
+
+SpringToolSuite4.exe
+보내기 - 바탕화면으로 바로가기 만들기
+
+d: workspace_sts1 작업폴더 만들기
+
+2) 스프링 프로그램 설치
+Help - Eclipse Marketplace - sts 검색
+Spring Tools 3 Add-On for Spring Tools 
+Confirm - Confirm - 
+I accept 체크 - Finish
+
+Help - Eclipse Marketplace 
+- web Developer 검색
+Eclipse Enterprise Java and Web Developer tools 설치
+Confirm - Finish
+
+3) 환경설정
+한글설정 UTF-8
+한글처리 => 세계 표준 UTF-8
+Window - Preferences - 
+General - Workspace - Text file encoding - Other - UTF-8
+Web - CSS Files - Encoding ISO 10646/Unicode(UTF-8)
+Web - HTML Files - Encoding ISO 10646/Unicode(UTF-8)
+Web - JSP Files - Encoding ISO 10646/Unicode(UTF-8)
+Apply and Close
+
+
+서버 가져오기
+File - New - Other - Server - Server -Next - Apache - Tomcat v8.5 Server
+Name :
+Apache Tomcat v8.5
+Tomcat installation directory :
+C:\Program Files\Apache Software Foundation\Tomcat 8.5
+Next 
+Finish
+
+Servers 환경설정
+Window - Show view -
+Server -server 
+Tomcat v8.5 Server at localhost 더블클릭
+Ports - Tomcat admin port - 8005
+        - HTTP - 8080
+Server Options
+Publsh module contexts to XML files 체크
+닫기 - 저장
+
+4) 프로젝트 만들기
+File - New - Other - Spring - 
+Spring Legacy Project -Next
+Project name : SpringProject
+Spring MVC Project 선택 - Next
+com.itwillbs.myweb - Finish
+
+5) 프로젝트 서버 연결 
+Servers - 서버선택 - 오른쪽버튼 - Add and Remove
+Add - Finish
+
+6) 실행
+프로젝트 - 오른쪽버튼 - Run As - Run on Server
+
+7) 브라우저 선택
+Window - Preferences - General - Web Browser
+- Use external web browser
+- Chrome 체크 - Apply and Close
+
+2. 기존 이클립스
+Help - Eclipse Marketplace - sts 검색
+
+
+스프링 
+MVC
+개념 DI (의존관계주입) : 객체생성방식
+JDBC
+MyBatis 디비연결
+AOP (관점지향프로그래밍)
+
+
+사용자 가상주소 http://localhost:8080/myweb/
+=> 웹서버 
+=> 웹애플리케이션서버
+=> 1. request,response 객체생성 , 요청정보 저장
+   2. web.xml 참조 -> 처리담당자 서블릿 지정
+   -> / 시작하는 주소 
+   -> <servlet-name>appServlet</servlet-name>
+   -> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+   -> <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+
+   -> /WEB-INF/spring/appServlet/servlet-context.xml
+   -> /WEB-INF/spring/root-context.xml
+
+   3. 서블릿 자동 처리작업 
+   -> root-context.xml
+   -> servlet-context.xml(서블릿)
+      폴더 어노테이션 스캔 : <context:component-scan base-package="com.itwillbs.myweb" />
+      어노테이션(골뱅이@) 자동으로 동작 :<annotation-driven />
+      JSP파일 경로 설정:
+      접두사 : <beans:property name="prefix" value="/WEB-INF/views/" />
+      접미사 : <beans:property name="suffix" value=".jsp" />
+      이미지,자바스크립트,스타일시트 경로 설정:
+      <resources mapping="/resources/**" location="/resources/" />
+
+    4. 자동작업 
+    ->com.itwillbs.myweb폴더 스캔 @Controller 찾아서 동작
+      가상 주소를 자동으로 뽑아서  주소를 비교하고 처리 
+    -> @RequestMapping(value = "/", method = RequestMethod.GET)
+       가상주소와 value 주소 비교 , 전송방식 GET/POST
+    -> 메서드 동작
+       처리작업 , Model model 에 데이터 저장, 
+       return "home";  /WEB-INF/views/home.jsp 이동
+    -> home.jsp 처리하고 결과 response 저장
+
+=> response 웹서버에 전달
+=> http 전달
+=> 사용자 전달
+=> 웹애플리케이션서버 : 서블릿,request,response 소멸
+
+
+   
+
+
+
+
 
 
 

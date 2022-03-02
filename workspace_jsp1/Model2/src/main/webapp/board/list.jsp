@@ -10,7 +10,7 @@
 <title>board/list.jsp</title>
 </head>
 <body>
-<a href="writeForm.jsp">글쓰기</a>
+<a href="write">글쓰기</a>
 <%
 // //BoardDAO 객체생성
 // BoardDAO bDAO=new BoardDAO();
@@ -63,7 +63,7 @@ for(int i=0;i<boardList.size();i++){
 	%>
 	<tr><td><%=bDTO.getNum() %></td>
 	    <td><%=bDTO.getName() %></td>
-	    <td><a href="content.jsp?num=<%=bDTO.getNum()%>">
+	    <td><a href="content?num=<%=bDTO.getNum()%>">
 	        <%=bDTO.getSubject() %></a></td>
 	    <td><%=bDTO.getReadcount() %></td>
 	    <td><%=bDTO.getDate() %></td></tr>
