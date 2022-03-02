@@ -22,6 +22,8 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+//	사용자 가상주소 http://localhost:8080/myweb/
+		
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -33,7 +35,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+		//   /WEB-INF/views/home.jsp
 		return "home";
 	}
 	
-}
+}//
