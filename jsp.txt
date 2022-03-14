@@ -696,14 +696,14 @@ JSP 모델2(MVC) => 자바:M(디비) + 자바:C(처리) + JSP:V(화면)
 // => request, response, 처리담당자 서블릿 => 소멸
 
 
-   가상주소 write     파일 writeForm.jsp 
-=> 가상주소 writePro  자바 writePro메서드 호출 (자바 디비메서드호출) 
-=> 가상주소 list      파일 list.jsp (자바 디비메서드호출)
-=> 가상주소 content   파일 content.jsp (자바 디비메서드호출)
-=> 가상주소 update     파일 updateForm.jsp(디비메서드호출) 
-=> 가상주소 updatePro  자바 updatePro 메서드 호출(디비)
-=> 가상주소 delete     파일 deleteForm.jsp 
-=> 가상주소 deletePro  자바 deletePro 메서드 호출(디비)
+   가상주소 /write     파일 writeForm.jsp 
+=> 가상주소 /writePro  자바 writePro메서드 호출 (자바 디비메서드호출) 
+=> 가상주소 /list      파일 list.jsp (자바 디비메서드호출)
+=> 가상주소 /content   파일 content.jsp (자바 디비메서드호출)
+=> 가상주소 /update     파일 updateForm.jsp(디비메서드호출) 
+=> 가상주소 /updatePro  자바 updatePro 메서드 호출(디비)
+=> 가상주소 /delete     파일 deleteForm.jsp 
+=> 가상주소 /deletePro  자바 deletePro 메서드 호출(디비)
 
 프레임워크 : 뼈대를 이루는 코드들의 묶음
 스프링 프레임워크 : 대중적 경량 프레임워크 , 코드 간결, 반복작업 없어짐
@@ -715,6 +715,7 @@ JSP 모델2(MVC) => 자바:M(디비) + 자바:C(처리) + JSP:V(화면)
 1. 스프링 툴(STS) 다운
 
 spring.io
+
 Projects - Spring tool 4 
 4.13.1 - WINDOWS X86_64
 spring-tool-suite-4-4.13.1.RELEASE-e4.22.0-win32.win32.x86_64.self-extracting.jar
@@ -811,6 +812,7 @@ AOP (관점지향프로그래밍)
 
 
 사용자 가상주소 http://localhost:8080/myweb/
+사용자 가상주소 http://localhost:8080/myweb/member/insert
 => 웹서버 
 => 웹애플리케이션서버
 => 1. request,response 객체생성 , 요청정보 저장
@@ -852,6 +854,156 @@ AOP (관점지향프로그래밍)
 
    
 
+<MyBatis 디비연결>
+1) 프로젝트 만들기
+File - New - Other - Spring - 
+Spring Legacy Project -Next
+Project name : FunWeb
+Spring MVC Project 선택 - Next
+com.itwillbs.FunWeb - Finish
+
+2) 자바버전 변경
+자바버전 1.6 -> 1.8 설정 변경
+프로젝트 - 오른쪽 버튼 - Properties -
+Java Compiler - JDK Compliance - 체크해제 - 1.8변경
+Project Facets - Java 1.8 변경
+               - Dymamic Web Module 3.1 변경
+Apply and Close
+
+3) 스프링버전 변경
+pom.xml
+<properties>
+<java-version>1.8</java-version>
+<org.springframework-version>4.1.7.RELEASE</org.springframework-version>
+<org.aspectj-version>1.6.10</org.aspectj-version>
+<org.slf4j-version>1.6.6</org.slf4j-version>
+</properties>
+
+4) 프로그램 설치
+pom.xml
+
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>5.1.39</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>${org.springframework-version}</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.2.8</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>1.2.2</version>
+</dependency>
+
+5) web.xml(모든페이지가 참조하는 파일) 서블릿(처리담당자)지정
+src - main - webapp - WEB-INF - web.xml
+한글처리
+<!-- request 한글처리 -->
+<filter>
+	<filter-name>encoding</filter-name>
+	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+	<filter-name>encoding</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+
+6) /WEB-INF/spring/appServlet/servlet-context.xml 서블릿 지정
+패키지 자동으로 스캔하기 위해서 패키지 등록
+패키지 만들기 
+src/main/java 
+패키지 com.itwillbs.controller
+패키지 com.itwillbs.service
+패키지 com.itwillbs.dao
+패키지 com.itwillbs.domain
+추가
+<context:component-scan base-package="com.itwillbs.controller" />
+<context:component-scan base-package="com.itwillbs.service" />
+<context:component-scan base-package="com.itwillbs.dao" />
+
+
+7) /WEB-INF/spring/root-context.xml 서블릿 지정
+디비연결, 마이바티스 설정
+
+<!-- 1,2 단계 디비연결 -->
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	<property name="url" value="jdbc:mysql://localhost:3306/jspdb1?useSSL=false"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value="1234"></property>
+</bean>
+
+<!-- 마이바티스 환경설정 파일위치 -->
+<!-- src/main/resources  환경설정 파일  mybatis-config.xml-->
+<!-- 마이바티스 sql구문 파일위치 -->
+<!-- src/main/resources  폴더 mappers sql모음파일  memberMapper.xml-->
+
+
+	<!-- 마이바티스 셋팅 -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+</bean>
+
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+</bean>	
+
+
+8) MemberController 파일 만들기
+가상주소 http://localhost:8080/FunWeb/member/insert
+패키지 com.itwillbs.controller 파일 MemberController
+@Controller
+@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
+// /WEB-INF/views/member/join.jsp 이동(주소줄에 주소가 안바뀌면서 이동)
+return "member/join";
+
+src-main-webapp-resources - css폴더, images폴더, script폴더, upload폴더
+src-main-webapp-WEB-INF-views- center,company,contact,fcenter,gcenter,inc,main member,solutions 폴더
+
+이미지, 스타일시트, 자바스크립트, upload 폴더 경로설정
+<link href="<%=request.getContextPath() %>/resources/css/default.css"
+
+객체생성
+@Inject
+private MemberService memberService;
+메서드호출
+
+9)MemberService  MemberServiceImpl 파일 만들기
+
+가상주소 http://localhost:8080/FunWeb/member/joinPro
+// 패키지  com.itwillbs.service  인터페이스 MemberService 
+// 클래스 @Service  MemberServiceImpl insertMember(memberDTO)메서드호출 
+
+객체생성
+@Inject
+private MemberDAO memberDAO;
+메서드 호출
+
+10)MemberDAO  MemberDAOImpl 파일 만들기
+
+// =>패키지 com.itwillbs.dao  인터페이스 MemberDAO
+// 클래스 @Repository MemberDAOImpl insertMember(memberDTO)
 
 
 
