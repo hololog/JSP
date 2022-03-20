@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 1,2 단계 디비연결 -->
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	<property name="url" value="jdbc:mysql://localhost:3306/jspdb1?useSSL=false"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value="1234"></property>
+</bean>
+	
+	<!-- 마이바티스 셋팅 -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	<property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property>
+</bean>
+
+<!-- https://blog.mybatis.org/ -->
+<!-- https://mybatis.org/mybatis-3/getting-started.html -->
+<!-- 마이바티스 환경설정 파일위치 -->
+<!-- src/main/resources  환경설정 파일  mybatis-config.xml-->
+<!-- 마이바티스 sql구문 파일위치 -->
+<!-- src/main/resources  폴더 mappers sql모음파일  memberMapper.xml-->
+
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+</bean>	
+
+		
+</beans>
