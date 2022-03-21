@@ -1005,6 +1005,81 @@ private MemberDAO memberDAO;
 // =>패키지 com.itwillbs.dao  인터페이스 MemberDAO
 // 클래스 @Repository MemberDAOImpl insertMember(memberDTO)
 
+	//마이바티스 객체생성
+	@Inject
+	private SqlSession sqlSession;
+
+-----------------------------------
+github.com
+회원가입
+
+저장소 만들기
+저장소 주소
+https://github.com/hongcine/githubtest20220318.git
+
+Settings - Developer settings
+Personal access tokens
+
+new token
+체크
+reop
+adminorg
+user
+delete repo
+writediscussion
+
+
+토큰
+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
+
+1) commit
+2) push
+3) pull
+
+4)충돌
+
+미국  충돌부분 가져오기
+remote - fetch from 
+클릭 All Branches
+체크 Dont fetch any tags
+가져온 이름 기억
+master choose_remote_name/master
+
+병합
+merge
+가져온 이름 선택
+Merge
+Merge result
+
+병합 후 수정 => commit => push
+
+5) branch
+새로만들때 switch to - new branch
+가지 선택 switch to - 가지이름 선택
+작업 -> commit 
+가지마다 commit 작업내용 틀림
+push 가지마다 적용
+
+6) 팀장 프로젝트 저장소 만들고 프로젝트 push  
+   팀원 초대
+	저장소 - Settings - Collaborators - Add people
+   팀원 복제
+
+git작업공간
+- Clone Git Repository
+- URI 초대받은 저장소 주소 - Next - Next
+- 스프링 작업 디렉토리 
+  D:\Shared\JSP\workspace_sts1\gittest20211125
+  Projects체크
+  Import all existing Eclipse Projects after clone finishes
+
+
+   
+https://github.com/hongcine/githubtest20220318_2.git
+
+
+
+
 
 
 
