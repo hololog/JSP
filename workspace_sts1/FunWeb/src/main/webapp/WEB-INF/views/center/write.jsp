@@ -1,7 +1,3 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="board.BoardDTO"%>
-<%@page import="java.util.List"%>
-<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/default.css" rel="stylesheet" type="text/css">
-<link href="../css/subpage.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js" type="text/javascript"></script>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/ie7-squish.js" type="text/javascript"></script>
@@ -40,27 +36,27 @@
 <!-- 왼쪽메뉴 -->
 <nav id="sub_menu">
 <ul>
-<li><a href="../center/notice.jsp">Notice</a></li>
-<li><a href="../fcenter/fnotice.jsp">자료실</a></li>
-<li><a href="../gcenter/gnotice.jsp">갤러리</a></li>
+<li><a href="${pageContext.request.contextPath }/board/list">Notice</a></li>
+<li><a href="${pageContext.request.contextPath }/fboard/flist">자료실</a></li>
+<li><a href="${pageContext.request.contextPath }/gboard/glist">갤러리</a></li>
 </ul>
 </nav>
 <!-- 왼쪽메뉴 -->
 <%
-//세션값 가져오기
-String id=(String)session.getAttribute("id");
-//세션값이 없으면 ../member/login.jsp
-if(id==null){
-	response.sendRedirect("../member/login.jsp");
-}
+// //세션값 가져오기
+// String id=(String)session.getAttribute("id");
+// //세션값이 없으면 ../member/login.jsp
+// if(id==null){
+// 	response.sendRedirect("../member/login.jsp");
+// }
 %>
 <!-- 게시판 -->
 <article>
 <h1>Notice Write</h1>
-<form action="writePro.jsp" method="post">
+<form action="${pageContext.request.contextPath }/board/writePro" method="post">
 <table id="notice">
 <tr><td>이름</td>
-    <td><input type="text" name="name" value="<%=id %>" readonly></td></tr>
+    <td><input type="text" name="name" value="${sessionScope.id}" readonly></td></tr>
 <tr><td>제목</td>
     <td><input type="text" name="subject"></td></tr>
 <tr><td>내용</td>
@@ -69,7 +65,8 @@ if(id==null){
 
 <div id="table_search">
 <input type="submit" value="글쓰기" class="btn">
-<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+<input type="button" value="글목록" class="btn" 
+onclick="location.href='${pageContext.request.contextPath }/board/list'">
 </div>
 </form>
 

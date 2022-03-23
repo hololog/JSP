@@ -19,4 +19,8 @@ public interface MemberService {
 	
 //	List<MemberDTO> memberList=memberService.getMemberList();
 	public List<MemberDTO> getMemberList();
+	
+//	memberService.deleteMember(memberDTO);
+	public void deleteMember(MemberDTO memberDTO);
+	
 }

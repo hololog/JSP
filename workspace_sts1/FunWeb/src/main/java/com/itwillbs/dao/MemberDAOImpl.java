@@ -48,4 +48,9 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectList(namespace+".getMemberList");
 	}
 
+	@Override
+	public void deleteMember(MemberDTO memberDTO) {
+		sqlSession.delete(namespace+".deleteMember", memberDTO);
+	}
+
 }//

@@ -16,4 +16,7 @@ public interface MemberDAO {
 	public void updateMember(MemberDTO memberDTO);
 	
 	public List<MemberDTO> getMemberList();
+	
+	public void deleteMember(MemberDTO memberDTO);
+	
 }

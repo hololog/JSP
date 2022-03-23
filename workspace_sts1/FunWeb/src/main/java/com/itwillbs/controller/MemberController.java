@@ -146,6 +146,42 @@ public class MemberController {
 		}
 	}
 	
+//	가상주소 http://localhost:8080/FunWeb/member/delete
+	@RequestMapping(value = "/member/delete", method = RequestMethod.GET)
+	public String delete() {
+		System.out.println("MemberController delete() ");
+		
+		// /WEB-INF/views/member/delete.jsp 이동(주소줄에 주소가 안바뀌면서 이동)
+		return "member/delete";
+	}
+	
+//	가상주소 http://localhost:8080/FunWeb/member/deletePro
+	@RequestMapping(value = "/member/deletePro", method = RequestMethod.POST)
+	public String deletePro(MemberDTO memberDTO, HttpSession session) {
+		System.out.println("MemberController deletePro() ");
+		//디비작업
+		//아이디 비밀번호 일치 
+		// 객체생성
+//		MemberService memberService=new MemberServiceImpl();
+		//메서드 호출
+		MemberDTO checkMemberDTO=memberService.userCheck(memberDTO);
+		if(checkMemberDTO!=null) {
+			//아이디 비밀번호 일치
+			//수정
+			memberService.deleteMember(memberDTO);
+			//세션값 초기화
+			session.invalidate();
+			// 가상주소 로그인주소 이동 /main/main (주소줄에 주소가 바뀌면서 이동)
+			// 	response.sendRedirect("main/main");
+			return "redirect:/main/main";
+		}else {
+			//null 이면 아이디 비밀번호 틀림  "입력하신 정보는 틀림" 뒤로이동
+			//  /WEB-INF/views/member/msg.jsp
+			return "member/msg";
+		}
+	}
+	
+	
 	
 //	가상주소 http://localhost:8080/FunWeb/member/list
 	@RequestMapping(value = "/member/list", method = RequestMethod.GET)

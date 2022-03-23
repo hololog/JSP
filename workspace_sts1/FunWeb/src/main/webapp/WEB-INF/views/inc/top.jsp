@@ -44,7 +44,7 @@
 	<c:otherwise>
 	<div id="login"> ${sessionScope.id }님 | 
                 <a href="${pageContext.request.contextPath }/member/logout">logout</a> | 
-                <a href="${pageContext.request.contextPath }/member/update">update</a>
+                <a href="${pageContext.request.contextPath }/member/update">update</a> | 
                 <a href="${pageContext.request.contextPath }/member/delete">delete</a>
                 <c:if test="${sessionScope.id  eq 'admin' }">
                 	 | <a href="${pageContext.request.contextPath }/member/list">list</a>
@@ -63,7 +63,7 @@
 	<li><a href="${pageContext.request.contextPath }/main/main">HOME</a></li>
 	<li><a href="${pageContext.request.contextPath }/company/welcome">COMPANY</a></li>
 	<li><a href="#">SOLUTIONS</a></li>
-	<li><a href="${pageContext.request.contextPath }/center/notice">게시판</a></li>
+	<li><a href="${pageContext.request.contextPath }/board/list">게시판</a></li>
 	<li><a href="#">CONTACT US</a></li>
 </ul>
 </nav>
