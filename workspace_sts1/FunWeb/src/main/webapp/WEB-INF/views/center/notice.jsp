@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,11 +96,11 @@
 //     }
     %>
 <c:forEach var="bDTO" items="${boardList }">
-<tr onclick="location.href='content.jsp?num=${bDTO.num}'">
+<tr onclick="location.href='${pageContext.request.contextPath }/board/content?num=${bDTO.num}'">
     <td>${bDTO.num}</td>
     <td class="left">${bDTO.subject}</td>
     <td>${bDTO.name}</td>
-    <td>${bDTO.date}</td>
+    <td><fmt:formatDate value="${bDTO.date}" pattern="yyyy.MM.dd"/> </td>
     <td>${bDTO.readcount}</td>
 </tr> 
 </c:forEach> 
@@ -111,7 +112,8 @@
 // // 세션값이 있으면 글쓰기 버튼 보이기
 // if(id!=null){
 	%>
-<input type="button" value="글쓰기" class="btn" onclick="location.href='write.jsp'">	
+<input type="button" value="글쓰기" class="btn" 
+onclick="location.href='${pageContext.request.contextPath }/board/write'">	
 	<%
 // }
 %>
@@ -159,19 +161,37 @@
 // }
 //이전
 // if(startPage > pageBlock){
-	%><a href="notice.jsp?pageNum=<%//=startPage-pageBlock%>">Prev</a><%
+	%>
+<%-- 	<a href="${pageContext.request.contextPath }/board/list?pageNum=<%//=startPage-pageBlock%>">Prev</a> --%>
+	<%
 // }
 
 // 1~10
 // for(int i=startPage;i<=endPage;i++){
-	%><a href="notice.jsp?pageNum=<%//=i%>"><%//=i %> </a><%
+	%>
+<%-- 	<a href="${pageContext.request.contextPath }/board/list?pageNum=<%//=i%>"><%//=i %> </a> --%>
+	<%
 // }
 
 //다음
 // if(endPage < pageCount){
-	%><a href="notice.jsp?pageNum=<%//=startPage+pageBlock%>">Next</a><%	
+	%>
+<%-- 	<a href="${pageContext.request.contextPath }/board/list?pageNum=<%//=startPage+pageBlock%>">Next</a> --%>
+	<%	
 // }
 %>
+<c:if test="${ pageDTO.startPage > pageDTO.pageBlock }">
+<a href="${pageContext.request.contextPath }/board/list?pageNum=${pageDTO.startPage-pageDTO.pageBlock}">Prev</a>
+</c:if>
+
+<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+<a href="${pageContext.request.contextPath }/board/list?pageNum=${i}">${i} </a>
+</c:forEach>
+
+<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+<a href="${pageContext.request.contextPath }/board/list?pageNum=${pageDTO.startPage+pageDTO.pageBlock}">Next</a>
+</c:if>
+
 </div>
 </article>
 <!-- 게시판 -->

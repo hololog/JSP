@@ -17,4 +17,17 @@
 	<select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
 		select * from board order by num desc limit #{startRow},#{pageSize}
 	</select>
+	
+	<select id="getBoardCount" resultType="java.lang.Integer">
+		select count(*) from board
+	</select>
+	
+	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
+		select * from board where num=#{num}
+	</select>
+	
+	<update id="updateReadcount">
+		update board set readcount=readcount+1 where num=#{num}
+	</update>
+	
 </mapper>

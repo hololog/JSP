@@ -1,16 +1,13 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="board.BoardDTO"%>
-<%@page import="java.util.List"%>
-<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/default.css" rel="stylesheet" type="text/css">
-<link href="../css/subpage.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/resources/css/default.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/resources/css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js" type="text/javascript"></script>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/ie7-squish.js" type="text/javascript"></script>
@@ -40,54 +37,69 @@
 <!-- 왼쪽메뉴 -->
 <nav id="sub_menu">
 <ul>
-<li><a href="../center/notice.jsp">Notice</a></li>
-<li><a href="../fcenter/fnotice.jsp">자료실</a></li>
-<li><a href="../gcenter/gnotice.jsp">갤러리</a></li>
+<li><a href="${pageContext.request.contextPath }/board/list">Notice</a></li>
+<li><a href="${pageContext.request.contextPath }/fboard/flist">자료실</a></li>
+<li><a href="${pageContext.request.contextPath }/gboard/glist">갤러리</a></li>
 </ul>
 </nav>
 <!-- 왼쪽메뉴 -->
 
 <!-- 게시판 -->
 <%
-// num 파라미터 가져오기
-int num = Integer.parseInt(request.getParameter("num"));
-// BoardDAO 객체생성
-BoardDAO bDAO=new BoardDAO();
-//조회수 1증가  update board set readcount=readcount+1 where num=?
-//리턴할값없음 updateReadcount(int num) 메서드 정의
-//updateReadcount(num)메서드 호출
-bDAO.updateReadcount(num);
+// // num 파라미터 가져오기
+// int num = Integer.parseInt(request.getParameter("num"));
+// // BoardDAO 객체생성
+// BoardDAO bDAO=new BoardDAO();
+// //조회수 1증가  update board set readcount=readcount+1 where num=?
+// //리턴할값없음 updateReadcount(int num) 메서드 정의
+// //updateReadcount(num)메서드 호출
+// bDAO.updateReadcount(num);
 
-//BoardDTO 리턴할형 getBoard(int num)메서드 정의
-//BoardDTO bDTO=  getBoard(num) 메서드 호출
-BoardDTO bDTO=bDAO.getBoard(num);
+// //BoardDTO 리턴할형 getBoard(int num)메서드 정의
+// //BoardDTO bDTO=  getBoard(num) 메서드 호출
+// BoardDTO bDTO=bDAO.getBoard(num);
 %>
 <article>
 <h1>Notice Content</h1>
 <table id="notice">
-<tr><td>글번호</td><td><%=bDTO.getNum() %></td>
-     <td>글쓴날짜</td><td><%=bDTO.getDate() %></td></tr>
-<tr><td>글쓴이</td><td><%=bDTO.getName() %></td>
-    <td>조회수</td><td><%=bDTO.getReadcount() %></td></tr>
-<tr><td>글제목</td><td colspan="3"><%=bDTO.getSubject() %></td></tr>
-<tr><td>글내용</td><td colspan="3"><%=bDTO.getContent() %></td></tr>
+<tr><td>글번호</td><td>${boardDTO.num}</td>
+     <td>글쓴날짜</td><td>${boardDTO.date}</td></tr>
+<tr><td>글쓴이</td><td>${boardDTO.name}</td>
+    <td>조회수</td><td>${boardDTO.readcount}</td></tr>
+<tr><td>글제목</td><td colspan="3">${boardDTO.subject}</td></tr>
+<tr><td>글내용</td><td colspan="3">${boardDTO.content}</td></tr>
 </table>
 <div id="table_search">
 <%
-// 세션값 가져오기
-String id=(String)session.getAttribute("id");
-// 세션값이 있으면 
-// 세션값(로그인)과  글쓴이 일치하면 
-if(id!=null){
-	if(id.equals(bDTO.getName())){
+// // 세션값 가져오기
+// String id=(String)session.getAttribute("id");
+// // 세션값이 있으면 
+// // 세션값(로그인)과  글쓴이 일치하면 
+// if(id!=null){
+// 	if(id.equals(bDTO.getName())){
 		%>
-<input type="button" value="글수정" class="btn" onclick="location.href='update.jsp?num=<%=bDTO.getNum()%>'">
-<input type="button" value="글삭제" class="btn" onclick="location.href='delete.jsp?num=<%=bDTO.getNum()%>'">		
+<%-- <input type="button" value="글수정" class="btn" onclick="location.href='${pageContext.request.contextPath }/board/update?num=<%//=bDTO.getNum()%>'"> --%>
+<%-- <input type="button" value="글삭제" class="btn" onclick="location.href='${pageContext.request.contextPath }/board/delete?num=<%//=bDTO.getNum()%>'">		 --%>
 		<%
-	}
-}
+// 	}
+// }
 %>
-<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'">
+
+<c:if test="${ ! empty sessionScope.id }">
+
+	<c:if test="${sessionScope.id eq boardDTO.name}">
+	
+<input type="button" value="글수정" class="btn" 
+onclick="location.href='${pageContext.request.contextPath }/board/update?num=${boardDTO.num}'">
+<input type="button" value="글삭제" class="btn" 
+onclick="location.href='${pageContext.request.contextPath }/board/delete?num=${boardDTO.num}'">	
+		
+	</c:if>
+	
+</c:if>
+
+<input type="button" value="글목록" class="btn" 
+onclick="location.href='${pageContext.request.contextPath }/board/list'">
 </div>
 <div class="clear"></div>
 <div id="page_control">
