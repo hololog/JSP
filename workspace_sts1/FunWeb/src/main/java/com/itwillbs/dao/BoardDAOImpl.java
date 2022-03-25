@@ -50,4 +50,14 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSession.update(namespace+".updateReadcount", num);
 	}
 
+	@Override
+	public void updateBoard(BoardDTO boardDTO) {
+		sqlSession.update(namespace+".updateBoard", boardDTO);
+	}
+
+	@Override
+	public void deleteBoard(int num) {
+		sqlSession.delete(namespace+".deleteBoard", num);
+	}
+
 }//

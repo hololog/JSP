@@ -1,7 +1,6 @@
-<%@page import="java.util.List"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,16 +33,20 @@
 //          mainjson.jsp  getBoardList()호출 최근글 5개를 가져와서 => json형태로 변경
 //  ajax json데이터를 가져와서 each반복해서 추가 <tr><td class="contxt"></td><td></td></tr>
 			$.ajax({
-				url:"mainjson.jsp",
+				url:"${pageContext.request.contextPath }/main/mainjson",
 				dataType:"json",
 				success:function(rdata){
 					$.each(rdata,function(index,item){
-$('table').append('<tr><td class="contxt"><a href="../center/content.jsp?num='+item.num+'">'+item.subject+'</a></td><td>'+item.date+'</td></tr>');
+						date=new Date(item.date);
+						d=date.getFullYear()+"."+(date.getMonth()+1)+"."+date.getDay();
+$('table').append('<tr><td class="contxt"><a href="${pageContext.request.contextPath }/board/content?num='+item.num+'">'+item.subject+'</a></td><td>'+d+'</td></tr>');
 					});
 				}
-			});
-		});
-	});
+			});//
+			
+		});//
+		
+	});//
 </script>
 </head>
 <body>

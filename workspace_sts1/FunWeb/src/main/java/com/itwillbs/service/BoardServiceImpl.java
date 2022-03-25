@@ -73,5 +73,15 @@ public class BoardServiceImpl implements BoardService{
 		boardDAO.updateReadcount(num);
 	}
 
+	@Override
+	public void updateBoard(BoardDTO boardDTO) {
+		boardDAO.updateBoard(boardDTO);
+	}
+
+	@Override
+	public void deleteBoard(int num) {
+		boardDAO.deleteBoard(num);
+	}
+
 	
 }//

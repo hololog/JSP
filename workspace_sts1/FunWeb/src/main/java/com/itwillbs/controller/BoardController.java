@@ -122,6 +122,56 @@ public class BoardController {
 		return "center/content";
 	}
 	
+	// 가상주소 http://localhost:8080/FunWeb/board/update?num=1
+	@RequestMapping(value = "/board/update", method = RequestMethod.GET)
+	public String update(HttpServletRequest request, Model model) {
+		System.out.println("BoardController update() ");
+		int num=Integer.parseInt(request.getParameter("num"));
+		
+		// num에 대한 글 가져오기
+		BoardDTO boardDTO=boardService.getBoard(num);
+		
+		// 디비에서 가져온 글을 model 담아서 update.jsp 전달
+		model.addAttribute("boardDTO", boardDTO);
+		
+		// /WEB-INF/views/center/update.jsp 이동(주소줄에 주소가 안바뀌면서 이동)
+		return "center/update";
+	}
+	
+//	가상주소 http://localhost:8080/FunWeb/board/updatePro
+	@RequestMapping(value = "/board/updatePro", method = RequestMethod.POST)
+	public String updatePro(BoardDTO boardDTO) {
+		System.out.println("BoardController updatePro() ");
+		//디비작업
+		// 객체생성
+//		BoardService boardService=new BoardServiceImpl();
+		//메서드 호출
+		boardService.updateBoard(boardDTO);
+		
+		// 가상주소 로그인주소 이동 /board/list (주소줄에 주소가 바뀌면서 이동)
+		// 	response.sendRedirect("/board/list");
+		return "redirect:/board/list";
+	}
+	
+	// 가상주소 http://localhost:8080/FunWeb/board/delete?num=1
+	// /board/delete  get방식
+	// deleteBoard(boardDTO);
+	// redirect:/board/list
+	@RequestMapping(value = "/board/delete", method = RequestMethod.GET)
+	public String delete(HttpServletRequest request) {
+		System.out.println("BoardController delete() ");
+		int num=Integer.parseInt(request.getParameter("num"));
+		
+		// num에 대한 글 삭제
+		boardService.deleteBoard(num);
+		
+		
+		// 가상주소 로그인주소 이동 /board/list (주소줄에 주소가 바뀌면서 이동)
+		// 	response.sendRedirect("/board/list");
+		return "redirect:/board/list";
+	}
+	
+	
 //	파일업로드-----------------------------------------------
 //	가상주소 http://localhost:8080/FunWeb/fboard/fwrite
 	@RequestMapping(value = "/fboard/fwrite", method = RequestMethod.GET)

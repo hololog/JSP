@@ -18,4 +18,8 @@ public interface BoardDAO {
 		public BoardDTO getBoard(int num);
 		
 		public void updateReadcount(int num);
+		
+		public void updateBoard(BoardDTO boardDTO);
+		
+		public void deleteBoard(int num);
 }

@@ -67,6 +67,9 @@
 <tr><td>글쓴이</td><td>${boardDTO.name}</td>
     <td>조회수</td><td>${boardDTO.readcount}</td></tr>
 <tr><td>글제목</td><td colspan="3">${boardDTO.subject}</td></tr>
+<tr><td>파일</td><td colspan="3">
+<a href="${pageContext.request.contextPath }/resources/upload/${boardDTO.file}" download>
+${boardDTO.file}</a></td></tr>
 <tr><td>글내용</td><td colspan="3">${boardDTO.content}</td></tr>
 </table>
 <div id="table_search">

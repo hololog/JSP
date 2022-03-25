@@ -80,9 +80,14 @@
  		$('.dup').click(function(){
 //  			alert("클릭");
 			$.ajax({
-				url:"userCheck2.jsp",
+				url:"${pageContext.request.contextPath }/member/userCheck2",
 				data:{"id":$('#id').val()},
 				success:function(rdata){
+					if(rdata=='idok'){
+						rdata="아이디 사용가능";
+					}else{
+						rdata="아이디 중복";
+					}
 					// id="divdup" 에 리턴받은 값 넣기
 					$('#divdup').html(rdata);
 				}
