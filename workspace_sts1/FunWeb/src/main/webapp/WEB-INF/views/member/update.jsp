@@ -61,7 +61,7 @@
 // 			<artifactId>jstl</artifactId>
 // 			<version>1.2</version>
 // 		</dependency>
-//              if  choose  반복문
+//              if  choose  each 반복문
 // 태그형태로 출력
 
 

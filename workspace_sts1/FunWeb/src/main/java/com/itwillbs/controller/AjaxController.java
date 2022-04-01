@@ -62,4 +62,36 @@ ResponseEntity<List<BoardDTO>> entity=new ResponseEntity<List<BoardDTO>>(boardLi
 		return entity;
 	}
 	
+//	가상주소 http://localhost:8080/FunWeb/member/testidcheck
+	@RequestMapping(value = "/member/testidcheck", method = RequestMethod.GET)
+	public ResponseEntity<String> testidcheck(HttpServletRequest request){
+		String result="";
+		String id=request.getParameter("id");
+		MemberDTO memberDTO=memberService.getMember(id);
+		if(memberDTO!=null) {
+			//아이디 있음 => 아이디 중복
+			result="iddup";
+		}else {
+			//아이디 없음 => 아이디 사용가능
+			result="idok";
+		}
+		ResponseEntity<String> entity=new ResponseEntity<String>(result, HttpStatus.OK);
+		
+		return entity;
+	}
+	
+//	가상주소 http://localhost:8080/FunWeb/board/boardjson
+	@RequestMapping(value = "/board/boardjson", method = RequestMethod.GET)
+	public ResponseEntity<List<BoardDTO>> boardjson(HttpServletRequest request){
+		PageDTO pageDTO=new PageDTO();
+		pageDTO.setPageSize(10);
+		pageDTO.setPageNum("1");
+		
+		List<BoardDTO> boardList=boardService.getBoardList(pageDTO);
+		
+ResponseEntity<List<BoardDTO>> entity=new ResponseEntity<List<BoardDTO>>(boardList , HttpStatus.OK);
+		
+		return entity;
+	}
+	
 }//

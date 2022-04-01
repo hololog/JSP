@@ -195,5 +195,26 @@ public class MemberController {
 		return "member/list";
 	}
 	
+//	-------------------------------------------------------
+	
+//	가상주소 http://localhost:8080/FunWeb/member/test12
+//	=> jQuery_test/test12.jsp
+	@RequestMapping(value = "/member/test12", method = RequestMethod.GET)
+	public String test12() {
+		System.out.println("MemberController test12() ");
+		
+		// /WEB-INF/views/jQuery_test/test12.jsp 이동(주소줄에 주소가 안바뀌면서 이동)
+		return "jQuery_test/test12";
+	}	
+	
+//	가상주소 http://localhost:8080/FunWeb/member/test3
+//	=> jQuery_test/test3.jsp			
+	@RequestMapping(value = "/member/test3", method = RequestMethod.GET)
+	public String test3() {
+		System.out.println("MemberController test3() ");
+		
+		// /WEB-INF/views/jQuery_test/test3.jsp 이동(주소줄에 주소가 안바뀌면서 이동)
+		return "jQuery_test/test3";
+	}	
 	
 }//

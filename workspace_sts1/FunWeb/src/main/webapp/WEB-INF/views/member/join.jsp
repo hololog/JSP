@@ -34,7 +34,7 @@
 		window.open("userCheck.jsp?id="+id,"","width=400,height=300");
 	}
  </script>
- <script type="text/javascript" src="<%=request.getContextPath() %>/resources/script/jquery-3.6.0.js"></script>
+ <script type="text/javascript" src="${pageContext.request.contextPath }/resources/script/jquery-3.6.0.js"></script>
  <script type="text/javascript">
  	$(document).ready(function(){
  		$('#join').submit(function(){
